@@ -15,7 +15,9 @@
       <text x="20%" y="50%" fill="#dee2e6" dy=".3em">64x64</text>
     </svg>
     <div class="media-body">
-      <h5 class="mt-0">{{ name }}</h5>
+      <h5 class="mt-0">
+        <nuxt-link :to="path">{{ name }}</nuxt-link>
+      </h5>
       {{ introduction }}
     </div>
   </div>
@@ -34,6 +36,10 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
+    id: {
+      type: String,
+      default: null
+    },
     name: {
       type: String,
       default: '名無し'
@@ -41,6 +47,11 @@ export default Vue.extend({
     introduction: {
       type: String,
       default: '自己紹介はありません'
+    }
+  },
+  data() {
+    return {
+      path: '/graphicker/' + this.id
     }
   }
 })

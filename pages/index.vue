@@ -5,25 +5,7 @@
       <p>グラフィックレコーダー、グラフィックファシリテータと繋がる！！</p>
     </header>
     <main>
-      <div class="graphickers-list container">
-        <div class="row">
-          <graphicker
-            class="col-lg-4 col-md-12"
-            :name="name"
-            :introduction="introduction"
-          />
-          <graphicker
-            class="col-lg-4 col-md-12"
-            :name="name"
-            :introduction="introduction"
-          />
-          <graphicker
-            class="col-lg-4 col-md-12"
-            :name="name"
-            :introduction="introduction"
-          />
-        </div>
-      </div>
+      <graphickersList />
       <nav>
         <ul class="pagination justify-content-center">
           <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -38,19 +20,13 @@
   </div>
 </template>
 
-<style>
-.graphickers-list {
-  padding: 1ex;
-}
-</style>
-
 <script>
 import Vue from 'vue'
-import graphicker from '~/components/pages/graphicker.vue'
+import graphickersList from '~/components/pages/graphickersList.vue'
 
 export default Vue.extend({
   components: {
-    graphicker
+    graphickersList
   },
   data() {
     return {
