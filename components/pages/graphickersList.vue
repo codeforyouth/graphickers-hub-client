@@ -2,22 +2,12 @@
   <div class="graphickers-list container">
     <div class="row">
       <graphicker
-        :id="id"
+        v-for="graphicker in graphickers"
+        :id="graphicker.id"
+        :key="graphicker.id"
+        :name="graphicker.name"
+        :introduction="graphicker.introduction"
         class="col-lg-4 col-md-12"
-        :name="name"
-        :introduction="introduction"
-      />
-      <graphicker
-        :id="id"
-        class="col-lg-4 col-md-12"
-        :name="name"
-        :introduction="introduction"
-      />
-      <graphicker
-        :id="id"
-        class="col-lg-4 col-md-12"
-        :name="name"
-        :introduction="introduction"
       />
     </div>
   </div>
@@ -39,10 +29,12 @@ export default Vue.extend({
   },
   data() {
     return {
-      id: 'sensu_watson',
-      name: '渡辺 賢',
-      introduction: 'Code for Nagoya, Aichi, Youthで活躍中。'
+      graphickers: []
     }
+  },
+  created() {
+    this.$store.dispatch('graphickers/fetchGraphickers')
+    this.graphickers = this.$store.state.graphickers.list
   }
 })
 </script>
