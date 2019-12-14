@@ -1,11 +1,11 @@
 export const state = () => ({
-  list: [],
+  graphickers: [],
   isLoading: false
 })
 
 export const mutations = {
-  setAll(state, list) {
-    state.list = list
+  setAll(state, graphickers) {
+    state.graphickers = graphickers
   },
   startLoading(state) {
     state.isLoading = true
@@ -16,29 +16,10 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchGraphickers({ commit }) {
+  async fetchGraphickers({ commit }) {
     commit('startLoading')
-    commit('setAll', generateGraphickersList())
+    const graphickers = await this.$axios.$get('/api/graphickers')
+    commit('setAll', graphickers)
     commit('endLoading')
   }
-}
-
-function generateGraphickersList() {
-  return [
-    {
-      id: 'sensu_watson',
-      name: '渡辺 賢1',
-      introduction: 'Code for Nagoya, Aichi, Youthで活躍中。'
-    },
-    {
-      id: 'sensu_watson2',
-      name: '渡辺 賢2',
-      introduction: 'Code for Nagoya, Aichi, Youthで活躍中。'
-    },
-    {
-      id: 'sensu_watson3',
-      name: '渡辺 賢3',
-      introduction: 'Code for Nagoya, Aichi, Youthで活躍中。'
-    }
-  ]
 }

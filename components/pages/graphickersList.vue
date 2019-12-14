@@ -7,7 +7,7 @@
         :key="graphicker.id"
         :name="graphicker.name"
         :introduction="graphicker.introduction"
-        class="col-lg-4 col-md-12"
+        class="col-lg-6 col-md-12"
       />
     </div>
   </div>
@@ -21,20 +21,25 @@
 
 <script>
 import Vue from 'vue'
+import { mapActions, mapState } from 'vuex'
 import graphicker from '~/components/pages/graphicker.vue'
 
 export default Vue.extend({
   components: {
     graphicker
   },
-  data() {
-    return {
-      graphickers: []
-    }
+  computed: {
+    ...mapState('graphickers', {
+      graphickers: 'graphickers'
+    })
   },
-  created() {
-    this.$store.dispatch('graphickers/fetchGraphickers')
-    this.graphickers = this.$store.state.graphickers.list
+  mounted() {
+    this.getList()
+  },
+  methods: {
+    ...mapActions({
+      getList: 'graphickers/fetchGraphickers'
+    })
   }
 })
 </script>
