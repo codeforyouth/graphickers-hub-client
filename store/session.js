@@ -1,21 +1,19 @@
 export const state = () => ({
-  session: {
-    id: 0,
-    name: '',
-    email: '',
-    introduction: '',
-    token: ''
-  },
+  session: null,
+  isLogin: false,
+  ErrorMessage: null,
+  isLoginError: false,
   isLoading: false
 })
 
 export const mutations = {
   setSession(state, graphicker) {
-    state.session.id = graphicker.id
-    state.session.name = graphicker.name
-    state.session.email = graphicker.email
-    state.session.introduction = graphicker.introduction
-    state.session.token = graphicker.token
+    state.isLoginError = false
+    state.session = graphicker
+  },
+  setError(state, ErrorMessage) {
+    state.isLoginError = true
+    state.ErrorMessage = ErrorMessage
   },
   startLoading(state) {
     state.isLoading = true
@@ -28,11 +26,18 @@ export const mutations = {
 export const actions = {
   async loginGraphicker({ commit }, { name, password }) {
     commit('startLoading')
-    const graphicker = await this.$axios.$post('/api/login', {
-      name,
-      password
-    })
-    commit('setSession', graphicker)
+    await this.$axios
+      .$post('/api/login', {
+        name,
+        password
+      })
+      .then((res) => {
+        commit('setSession', res)
+      })
+      .catch((err) => {
+        commit('setError', err.response.data.error)
+      })
+
     commit('endLoading')
   }
 }

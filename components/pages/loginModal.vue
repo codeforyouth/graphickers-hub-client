@@ -27,6 +27,8 @@
         ></b-form-input>
       </b-form-group>
 
+      <span v-if="isLoginError" class="error-message">{{ ErrorMessage }}</span>
+
       <b-button class="float-right" type="submit" variant="primary"
         >ログイン</b-button
       >
@@ -34,7 +36,11 @@
   </b-modal>
 </template>
 
-<style></style>
+<style>
+.error-message {
+  color: #ff0000;
+}
+</style>
 
 <script>
 import Vue from 'vue'
@@ -52,16 +58,25 @@ export default Vue.extend({
   computed: {
     ...mapState('session', {
       session: 'session',
-      graphicker: 'graphicker'
+      ErrorMessage: 'ErrorMessage',
+      isLoginError: 'isLoginError'
     })
   },
   methods: {
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault()
-      this.loginGraphicker({
+
+      // ログイン処理
+      await this.loginGraphicker({
         name: this.login.name,
         password: this.login.password
       })
+
+      // ログイン失敗
+      if (this.isLoginError) {
+        return
+      }
+
       this.$bvModal.hide('bv-modal-login')
     },
     onReset(event) {
