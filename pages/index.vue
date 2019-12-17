@@ -27,7 +27,6 @@
           </b-nav-form>
 
           <b-nav-item-dropdown v-if="session" right>
-            <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
               <em>{{
                 session.name ? session.name : 'グラフィッカーページ'
@@ -38,7 +37,7 @@
             <b-dropdown-item href="#">ログアウト</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-navbar-nav v-else right>
-            <b-nav-item href="#">新規登録</b-nav-item>
+            <b-nav-item @click="showSignupModal">新規登録</b-nav-item>
             <b-nav-item @click="showLoginModal">ログイン</b-nav-item>
           </b-navbar-nav>
         </b-navbar-nav>
@@ -49,6 +48,7 @@
     </main>
     <footer></footer>
     <loginModal />
+    <signupModal />
   </div>
 </template>
 
@@ -57,11 +57,13 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import graphickersList from '~/components/pages/graphickersList.vue'
 import loginModal from '~/components/pages/loginModal.vue'
+import signupModal from '~/components/pages/signupModal.vue'
 
 export default Vue.extend({
   components: {
     graphickersList,
-    loginModal
+    loginModal,
+    signupModal
   },
   data() {
     return {
@@ -77,6 +79,9 @@ export default Vue.extend({
   methods: {
     showLoginModal() {
       this.$bvModal.show('bv-modal-login')
+    },
+    showSignupModal() {
+      this.$bvModal.show('bv-modal-signup')
     }
   }
 })

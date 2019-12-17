@@ -35,7 +35,13 @@ export const actions = {
         commit('setSession', res)
       })
       .catch((err) => {
-        commit('setError', err.response.data.error)
+        if (err.response) {
+          commit('setError', err.response.data)
+        } else if (err.request) {
+          commit('setError', err.request)
+        } else {
+          commit('setError', err.message)
+        }
       })
 
     commit('endLoading')
