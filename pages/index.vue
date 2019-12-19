@@ -72,8 +72,8 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('session', {
-      session: 'session'
+    ...mapState({
+      session: 'session/session'
     })
   },
   methods: {

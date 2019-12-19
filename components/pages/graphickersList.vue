@@ -1,11 +1,12 @@
 <template>
   <div class="graphickers-list container">
-    <span v-if="isLoginError" class="error-message">{{ ErrorMessage }}</span>
+    <span v-if="isError" class="error-message">{{ ErrorMessage }}</span>
     <div class="row">
       <graphicker
         v-for="graphicker in graphickers"
         :id="graphicker.id"
         :key="graphicker.id"
+        :email="graphicker.email"
         :name="graphicker.name"
         :introduction="graphicker.introduction"
         class="col-lg-6 col-md-12"
@@ -30,10 +31,10 @@ export default Vue.extend({
     graphicker
   },
   computed: {
-    ...mapState('graphickers', {
-      graphickers: 'graphickers',
-      ErrorMessage: 'ErrorMessage',
-      isError: 'isError'
+    ...mapState({
+      graphickers: 'graphickers/graphickers',
+      ErrorMessage: 'graphickers/ErrorMessage',
+      isError: 'graphickers/isError'
     })
   },
   mounted() {

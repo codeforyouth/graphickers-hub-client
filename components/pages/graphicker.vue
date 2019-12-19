@@ -4,6 +4,7 @@
       <h3 class="graphickerName">
         <nuxt-link :to="path">{{ name }}</nuxt-link>
       </h3>
+      <span class="graphickerEmail">{{ email }}</span>
       <div class="imageWrapper">
         <svg
           class="bd-placeholder-img mr-3 graphickerImage"
@@ -41,6 +42,10 @@
 .graphickerName {
   padding: 1ex 0 0 1ex;
 }
+.graphickerEmail {
+  padding: 1ex 0 0 2ex;
+  color: #777777;
+}
 .imageWrapper {
   padding: 2ex;
 }
@@ -61,6 +66,10 @@ export default Vue.extend({
     id: {
       type: Number,
       default: null
+    },
+    email: {
+      type: String,
+      default: 'none@none.com'
     },
     name: {
       type: String,

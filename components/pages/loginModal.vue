@@ -56,10 +56,10 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('session', {
-      session: 'session',
-      ErrorMessage: 'ErrorMessage',
-      isLoginError: 'isLoginError'
+    ...mapState({
+      session: 'session/session',
+      ErrorMessage: 'session/ErrorMessage',
+      isLoginError: 'session/isLoginError'
     })
   },
   methods: {

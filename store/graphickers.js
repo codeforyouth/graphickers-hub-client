@@ -46,13 +46,19 @@ export const actions = {
       })
     commit('endLoading')
   },
-  async createGraphicker({ commit }, { name, email, password }) {
+  async createGraphicker(
+    { commit },
+    { name, email, password, passwordConfirmation }
+  ) {
     commit('startLoading')
     await this.$axios
       .$post('/api/graphickers', {
-        name,
-        email,
-        password
+        graphicker: {
+          name,
+          email,
+          password,
+          password_confirmation: passwordConfirmation
+        }
       })
       .then((res) => {
         commit('setOne', res)

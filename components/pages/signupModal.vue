@@ -41,6 +41,19 @@
         ></b-form-input>
       </b-form-group>
 
+      <b-form-group
+        label="PasswordConfirmation"
+        label-for="password-confirmation-input"
+        invalid-feedback="Password Confirmation is required"
+      >
+        <b-form-input
+          id="confirmation"
+          v-model="signup.passwordConfirmation"
+          type="password"
+          required
+        ></b-form-input>
+      </b-form-group>
+
       <span v-if="isSignupError" class="error-message">{{ ErrorMessage }}</span>
 
       <b-button class="float-right" type="submit" variant="primary"
@@ -65,15 +78,17 @@ export default Vue.extend({
     return {
       signup: {
         name: '',
-        password: ''
+        email: '',
+        password: '',
+        passwordConfirmation: ''
       }
     }
   },
   computed: {
-    ...mapState('session', {
-      session: 'session',
-      ErrorMessage: 'ErrorMessage',
-      isSignupError: 'isSignupError'
+    ...mapState({
+      session: 'session/session',
+      ErrorMessage: 'session/ErrorMessage',
+      isSignupError: 'session/isSignupError'
     })
   },
   methods: {
@@ -83,13 +98,21 @@ export default Vue.extend({
       // 新規登録処理
       await this.signupGraphicker({
         name: this.signup.name,
-        password: this.signup.password
+        email: this.signup.email,
+        password: this.signup.password,
+        passwordConfirmation: this.signup.passwordConfirmation
       })
 
       // 新規登録失敗
       if (this.isSignupError) {
         return
       }
+
+      // ログイン処理
+      await this.loginGraphicker({
+        name: this.signup.name,
+        password: this.signup.password
+      })
 
       this.$bvModal.hide('bv-modal-signup')
     },
@@ -98,10 +121,13 @@ export default Vue.extend({
 
       // フォームのリセット
       this.signup.name = ''
+      this.signup.email = ''
       this.signup.password = ''
+      this.signup.passwordConfirmation = ''
     },
     ...mapActions({
-      signupGraphicker: 'session/signupGraphicker'
+      signupGraphicker: 'graphickers/createGraphicker',
+      loginGraphicker: 'session/loginGraphicker'
     })
   }
 })
