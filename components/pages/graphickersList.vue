@@ -8,18 +8,12 @@
         :key="graphicker.id"
         :email="graphicker.email"
         :name="graphicker.name"
-        :introduction="graphicker.introduction"
+        :introduction="graphicker.introduction ? graphicker.introduction : null"
         class="col-lg-6 col-md-12"
       />
     </div>
   </div>
 </template>
-
-<style>
-.graphickers-list {
-  padding: 1ex;
-}
-</style>
 
 <script>
 import Vue from 'vue'
@@ -31,18 +25,18 @@ export default Vue.extend({
     graphicker
   },
   computed: {
-    ...mapState({
-      graphickers: 'graphickers/graphickers',
-      ErrorMessage: 'graphickers/ErrorMessage',
-      isError: 'graphickers/isError'
+    ...mapState('graphickers', {
+      graphickers: 'graphickers',
+      ErrorMessage: 'ErrorMessage',
+      isError: 'isError'
     })
   },
   mounted() {
     this.getList()
   },
   methods: {
-    ...mapActions({
-      getList: 'graphickers/fetchGraphickers'
+    ...mapActions('graphickers', {
+      getList: 'fetchGraphickers'
     })
   }
 })

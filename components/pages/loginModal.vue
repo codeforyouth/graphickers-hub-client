@@ -56,10 +56,9 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState({
-      session: 'session/session',
-      ErrorMessage: 'session/ErrorMessage',
-      isLoginError: 'session/isLoginError'
+    ...mapState('sessionGraphicker', {
+      ErrorMessage: 'ErrorMessage',
+      isLoginError: 'isLoginError'
     })
   },
   methods: {
@@ -86,8 +85,8 @@ export default Vue.extend({
       this.login.name = ''
       this.login.password = ''
     },
-    ...mapActions({
-      loginGraphicker: 'session/loginGraphicker'
+    ...mapActions('sessionGraphicker', {
+      loginGraphicker: 'loginGraphicker'
     })
   }
 })

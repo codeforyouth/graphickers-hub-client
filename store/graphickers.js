@@ -1,8 +1,7 @@
 export const state = () => ({
   graphickers: [],
-  graphicker: null,
-  ErrorMessage: null,
-  isError: false,
+  FetchErrorMessage: null,
+  isFetchError: false,
   isLoading: false
 })
 
@@ -11,13 +10,9 @@ export const mutations = {
     state.isError = false
     state.graphickers = graphickers
   },
-  setOne(state, graphicker) {
-    state.isError = false
-    state.graphicker = graphicker
-  },
-  setError(state, ErrorMessage) {
-    state.isError = true
-    state.ErrorMessage = ErrorMessage
+  setFetchError(state, ErrorMessage) {
+    state.isFetchError = true
+    state.FetchErrorMessage = ErrorMessage
   },
   startLoading(state) {
     state.isLoading = true
@@ -37,39 +32,11 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setError', err.response.data)
+          commit('setFetchError', err.response.data)
         } else if (err.request) {
-          commit('setError', err.request)
+          commit('setFetchError', err.request)
         } else {
-          commit('setError', err.message)
-        }
-      })
-    commit('endLoading')
-  },
-  async createGraphicker(
-    { commit },
-    { name, email, password, passwordConfirmation }
-  ) {
-    commit('startLoading')
-    await this.$axios
-      .$post('/api/graphickers', {
-        graphicker: {
-          name,
-          email,
-          password,
-          password_confirmation: passwordConfirmation
-        }
-      })
-      .then((res) => {
-        commit('setOne', res)
-      })
-      .catch((err) => {
-        if (err.response) {
-          commit('setError', err.response.data)
-        } else if (err.request) {
-          commit('setError', err.request)
-        } else {
-          commit('setError', err.message)
+          commit('setFetchError', err.message)
         }
       })
     commit('endLoading')

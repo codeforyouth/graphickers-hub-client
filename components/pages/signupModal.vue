@@ -85,10 +85,9 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState({
-      session: 'session/session',
-      ErrorMessage: 'session/ErrorMessage',
-      isSignupError: 'session/isSignupError'
+    ...mapState('sessionGraphicker', {
+      ErrorMessage: 'ErrorMessage',
+      isSignupError: 'isSignupError'
     })
   },
   methods: {
@@ -125,9 +124,11 @@ export default Vue.extend({
       this.signup.password = ''
       this.signup.passwordConfirmation = ''
     },
-    ...mapActions({
-      signupGraphicker: 'graphickers/createGraphicker',
-      loginGraphicker: 'session/loginGraphicker'
+    ...mapActions('graphickers', {
+      signupGraphicker: 'createGraphicker'
+    }),
+    ...mapActions('sessionGraphicker', {
+      loginGraphicker: 'loginGraphicker'
     })
   }
 })
