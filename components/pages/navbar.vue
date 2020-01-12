@@ -29,7 +29,7 @@
               }}</em>
             </template>
             <b-dropdown-item :to="mypage">グラフィッカー情報</b-dropdown-item>
-            <b-dropdown-item href="#">実績情報</b-dropdown-item>
+            <b-dropdown-item :to="myworks">作品・実績情報</b-dropdown-item>
             <b-dropdown-item @click="logout">ログアウト</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-navbar-nav v-else right>
@@ -65,7 +65,8 @@ export default Vue.extend({
     return {
       isOpenLoginModal: false,
       visible: false,
-      mypage: 'mypage'
+      mypage: '/mypage',
+      myworks: '/myworks'
     }
   },
   computed: {
