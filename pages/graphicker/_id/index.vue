@@ -21,6 +21,7 @@
       </section>
       <section>
         <h2>作品・実績情報</h2>
+        <portfoliosList :portfolios="portfolios" />
       </section>
     </main>
     <pageFooter />
@@ -41,11 +42,16 @@ import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
+import portfoliosList from '~/components/pages/portfoliosList.vue'
 
 export default Vue.extend({
   components: {
     navbar,
-    pageFooter
+    pageFooter,
+    portfoliosList
+  },
+  fetch({ store }) {
+    store.commit('sessionGraphicker/setSessionFromCookie')
   },
   computed: {
     title() {
@@ -58,14 +64,21 @@ export default Vue.extend({
       graphicker: 'graphicker',
       ErrorMessage: 'ErrorMessage',
       isError: 'isError'
+    }),
+    ...mapState('portfolios', {
+      portfolios: 'portfolios'
     })
   },
   mounted() {
     this.getOne({ id: this.$route.params.id })
+    this.fetchGraphickerPortfolios({ graphickerId: this.$route.params.id })
   },
   methods: {
     ...mapActions('graphickers', {
       getOne: 'fetchGraphicker'
+    }),
+    ...mapActions('portfolios', {
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
     })
   }
 })

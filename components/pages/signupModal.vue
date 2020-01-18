@@ -124,10 +124,8 @@ export default Vue.extend({
       this.signup.password = ''
       this.signup.passwordConfirmation = ''
     },
-    ...mapActions('graphickers', {
-      signupGraphicker: 'createGraphicker'
-    }),
     ...mapActions('sessionGraphicker', {
+      signupGraphicker: 'createGraphicker',
       loginGraphicker: 'loginGraphicker'
     })
   }

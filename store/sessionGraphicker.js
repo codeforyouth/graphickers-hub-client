@@ -81,11 +81,11 @@ export const actions = {
   },
   async logoutGraphicker({ commit }, { name, token }) {
     commit('startLoading')
+    commit('removeSession')
     await this.$axios.$post('/api/logout', {
       name,
       token
     })
-    commit('removeSession')
     commit('endLoading')
   },
   loadCurrentSession({ commit }) {
@@ -104,9 +104,6 @@ export const actions = {
           password,
           password_confirmation: passwordConfirmation
         }
-      })
-      .then((res) => {
-        commit('setOne', res)
       })
       .catch((err) => {
         if (err.response) {
