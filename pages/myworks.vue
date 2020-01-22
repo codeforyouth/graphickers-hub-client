@@ -34,6 +34,16 @@
             ></b-form-textarea>
           </b-form-group>
 
+          <b-form-group label="Avatar" label-for="avatar-input">
+            <b-form-file
+              id="avatar-input"
+              v-model="newPortfolio.avatarNames"
+              placeholder="Choose a file or drop it here..."
+              multiple
+              @change="onUpload()"
+            ></b-form-file>
+          </b-form-group>
+
           <b-button class="float-right" type="submit" variant="primary"
             >作品・実績追加</b-button
           >
@@ -64,7 +74,9 @@ export default Vue.extend({
     return {
       newPortfolio: {
         title: '',
-        show: ''
+        show: '',
+        avatars: null,
+        avatarNames: null
       },
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
       token: this.$store.getters['sessionGraphicker/getToken']
@@ -86,12 +98,16 @@ export default Vue.extend({
     showAddPortfolioModal() {
       this.$bvModal.show('bv-modal-add-portfolio')
     },
+    onUpload() {
+      this.form.avatars = event.target.files
+    },
     async addPortfolio(event) {
       event.preventDefault()
 
       await this.createPortfolios({
         title: this.newPortfolio.title,
         show: this.newPortfolio.show,
+        avatars: this.newPortfolio.avatars,
         graphickerId: this.graphickerId,
         token: this.token
       })

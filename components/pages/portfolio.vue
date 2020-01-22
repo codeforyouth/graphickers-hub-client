@@ -1,17 +1,20 @@
 <template>
   <div class="container">
-    <b-card no-body class="overflow-hidden">
+    <b-card no-body>
       <b-row>
         <b-col md="4">
           <b-card-img src="/noimage.png" alt="Card image"></b-card-img>
         </b-col>
         <b-col md="8">
-          <b-card-body>
+          <b-card-body class="description">
             <b-card-text>
               <h3>
                 <nuxt-link :to="path">{{ title }}</nuxt-link>
               </h3>
               {{ show }}</b-card-text
+            >
+            <b-button v-if="isOwner" class="edit float-right" variant="primary"
+              >編集</b-button
             >
           </b-card-body>
         </b-col>
@@ -26,10 +29,17 @@
   padding: 0;
   box-shadow: 10px 10px 10px rgba(122, 130, 141, 0.4);
 }
+.description {
+  height: 100%;
+}
+.edit {
+  margin: 0 0 10px 0;
+}
 </style>
 
 <script>
 import Vue from 'vue'
+import { mapState } from 'vuex'
 
 export default Vue.extend({
   props: {
@@ -60,6 +70,14 @@ export default Vue.extend({
     return {
       path: '/graphicker/' + this.graphickerId
     }
+  },
+  computed: {
+    isOwner() {
+      return this.graphicker ? this.graphicker.id === this.graphickerId : false
+    },
+    ...mapState('sessionGraphicker', {
+      graphicker: 'graphicker'
+    })
   }
 })
 </script>

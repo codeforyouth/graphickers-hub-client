@@ -18,7 +18,8 @@ export const getters = {
   getName: (state) => state.graphicker.name,
   getEmail: (state) => state.graphicker.email,
   getIntroduction: (state) => state.graphicker.introduction,
-  getToken: (state) => state.graphicker.token
+  getToken: (state) => state.graphicker.token,
+  getAvatar: (state) => state.graphicker.avatar_url
 }
 
 export const mutations = {
@@ -79,11 +80,11 @@ export const actions = {
       })
     commit('endLoading')
   },
-  async logoutGraphicker({ commit }, { name, token }) {
+  async logoutGraphicker({ commit }, { id, token }) {
     commit('startLoading')
     commit('removeSession')
     await this.$axios.$post('/api/logout', {
-      name,
+      id,
       token
     })
     commit('endLoading')
@@ -118,11 +119,41 @@ export const actions = {
   },
   async updateGraphicker(
     { commit },
-    { id, email, introduction, newPassword, newPasswordConfirmation, token }
+    {
+      id,
+      email,
+      introduction,
+      newPassword,
+      newPasswordConfirmation,
+      avatar,
+      token
+    }
   ) {
     commit('startLoading')
-    const graphicker = {}
+    let graphicker = {}
 
+    // アバター先処理
+    if (avatar) {
+      const formData = new FormData()
+      formData.append('id', id)
+      formData.append('token', token)
+      formData.append('avatar', avatar)
+      await this.$axios
+        .$put('/api/graphickers/' + id + '/avatar', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        .catch((err) => {
+          if (err.response) {
+            commit('setUpdateError', err.response.data)
+          } else if (err.request) {
+            commit('setUpdateError', err.request)
+          } else {
+            commit('setUpdateError', err.message)
+          }
+        })
+    }
+
+    graphicker = {}
     // API指定の形式に変換。
     // falsyな値は格納しない。
     if (email) {
@@ -137,6 +168,7 @@ export const actions = {
     if (newPasswordConfirmation) {
       graphicker.password_confirmation = newPasswordConfirmation
     }
+
     await this.$axios
       .$put('/api/graphickers/' + id, {
         graphicker,
@@ -155,6 +187,7 @@ export const actions = {
           commit('setUpdateError', err.message)
         }
       })
+
     commit('endLoading')
   }
 }

@@ -84,7 +84,7 @@ export default Vue.extend({
     },
     logout() {
       this.logoutGraphicker({
-        name: this.graphicker.name,
+        id: this.graphicker.id,
         token: this.graphicker.token
       })
     },

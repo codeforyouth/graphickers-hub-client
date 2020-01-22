@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <b-card img-src="/noimage.png" img-alt="Card image">
+    <b-card>
+      <b-card-img :src="avatarUrl" alt="Card image"></b-card-img>
       <b-card-text class="introduction">
         <h3>
           <nuxt-link :to="path">{{ name }}</nuxt-link>
@@ -28,6 +29,11 @@ export default Vue.extend({
       default: null,
       required: true
     },
+    avatar: {
+      type: String,
+      default: null,
+      required: false
+    },
     email: {
       type: String,
       default: 'none@none.com',
@@ -52,6 +58,9 @@ export default Vue.extend({
   computed: {
     selfIntroduction() {
       return this.introduction ? this.introduction : '自己紹介はありません'
+    },
+    avatarUrl() {
+      return this.avatar ? this.avatar : '/noimage.png'
     }
   }
 })

@@ -5,18 +5,29 @@
     <main>
       <section>
         <h2>グラフィッカー情報</h2>
-        <b-card img-src="/noimage.png" img-left>
-          <b-card-text>
-            <h2 class="name">{{ graphicker.name }}</h2>
-            <section class="self-introduction">
-              <h5>- 自己紹介</h5>
-              <p>{{ graphicker.introduction }}</p>
-            </section>
-            <section class="contact">
-              <h5>- 連絡先</h5>
-              <p>{{ graphicker.email }}</p>
-            </section>
-          </b-card-text>
+        <b-card no-body>
+          <b-row>
+            <b-col md="4">
+              <b-card-img
+                :src="avatarUrl"
+                alt="Card image"
+              ></b-card-img> </b-col
+            ><b-col md="8">
+              <b-card-body>
+                <b-card-text>
+                  <h2 class="name">{{ graphicker.name }}</h2>
+                  <section class="self-introduction">
+                    <h5>- 自己紹介</h5>
+                    <p>{{ graphicker.introduction }}</p>
+                  </section>
+                  <section class="contact">
+                    <h5>- 連絡先</h5>
+                    <p>{{ graphicker.email }}</p>
+                  </section>
+                </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
         </b-card>
       </section>
       <section>
@@ -59,6 +70,11 @@ export default Vue.extend({
     },
     leadMessage() {
       return this.graphicker.name + 'さんのページです'
+    },
+    avatarUrl() {
+      return this.graphicker.avatar_url
+        ? this.graphicker.avatar_url
+        : '/noimage.png'
     },
     ...mapState('graphickers', {
       graphicker: 'graphicker',

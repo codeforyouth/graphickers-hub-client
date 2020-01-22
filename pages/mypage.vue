@@ -9,6 +9,17 @@
       <b-form @submit="onSubmit" @reset="toggleUpdateMode">
         <h2>登録内容</h2>
         <p v-if="isUpdateMode">変更する箇所を入力してください。</p>
+        <b-form-group label="- Avatar" label-for="avatar-input">
+          <b-form-file
+            v-if="isUpdateMode"
+            id="avatar-input"
+            v-model="form.avatarName"
+            placeholder="Choose a file or drop it here..."
+            @change="onUpload()"
+          ></b-form-file>
+          <b-img v-if="!isUpdateMode" :src="avatarUrl" alt="Avatar"></b-img>
+        </b-form-group>
+
         <b-form-group label="- Email" label-for="email-input">
           <b-form-input
             v-if="isUpdateMode"
@@ -115,6 +126,8 @@ export default Vue.extend({
   data() {
     return {
       form: {
+        avatar: null,
+        avatarName: null,
         email: this.$store.getters['sessionGraphicker/getEmail'],
         introduction: this.$store.getters['sessionGraphicker/getIntroduction'],
         newPassword: '',
@@ -126,6 +139,11 @@ export default Vue.extend({
     }
   },
   computed: {
+    avatarUrl() {
+      return this.graphicker.avatar_url
+        ? this.graphicker.avatar_url
+        : '/noimage.png'
+    },
     ...mapState('sessionGraphicker', {
       graphicker: 'graphicker',
       isUpdateError: 'isUpdateError'
@@ -144,10 +162,14 @@ export default Vue.extend({
         newPasswordConfirmation: this.form.newPasswordConfirmation
           ? this.form.newPasswordConfirmation
           : null,
+        avatar: this.form.avatar,
         token: this.token
       })
 
       this.toggleUpdateMode()
+    },
+    onUpload() {
+      this.form.avatar = event.target.files[0]
     },
     toggleUpdateMode() {
       event.preventDefault()

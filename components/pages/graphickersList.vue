@@ -6,6 +6,7 @@
         v-for="graphicker in graphickers"
         :id="graphicker.id"
         :key="graphicker.id"
+        :avatar="graphicker.avatar_url"
         :email="graphicker.email"
         :name="graphicker.name"
         :introduction="graphicker.introduction ? graphicker.introduction : null"
