@@ -39,8 +39,6 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <loginModal />
-    <signupModal />
   </div>
 </template>
 
@@ -53,14 +51,8 @@
 <script>
 import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
-import loginModal from '~/components/pages/loginModal.vue'
-import signupModal from '~/components/pages/signupModal.vue'
 
 export default Vue.extend({
-  components: {
-    loginModal,
-    signupModal
-  },
   data() {
     return {
       isOpenLoginModal: false,

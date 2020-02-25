@@ -1,36 +1,50 @@
 <template>
-  <b-container>
-    <b-jumbotron
-      header="MyWorks - Graphicker's Hub"
-      lead="作品・実績情報ページです"
-    />
-    <navbar />
-    <main>
-      <portfoliosList :portfolios="portfolios" />
-      <b-button block variant="primary" @click="showAddPortfolioModal"
+  <b-modal id="bv-modal-add-portfolio" title="作品・実績追加" hide-footer>
+    <b-form @submit="addPortfolio">
+      <b-form-group
+        label="Title"
+        label-for="title-input"
+        invalid-feedback="Title is required"
+      >
+        <b-form-input
+          id="title-input"
+          v-model="newPortfolio.title"
+          type="text"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="Show" label-for="show-input">
+        <b-form-textarea
+          id="show-input"
+          v-model="newPortfolio.show"
+          rows="3"
+          type="text"
+        ></b-form-textarea>
+      </b-form-group>
+
+      <b-form-group label="Avatar" label-for="avatar-input">
+        <b-form-file
+          id="avatar-input"
+          v-model="newPortfolio.avatarNames"
+          placeholder="Choose a file or drop it here..."
+          multiple
+          @change="onUpload()"
+        ></b-form-file>
+      </b-form-group>
+
+      <b-button class="float-right" type="submit" variant="primary"
         >作品・実績追加</b-button
       >
-    </main>
-    <pageFooter />
-    <modals />
-  </b-container>
+    </b-form>
+  </b-modal>
 </template>
 
 <script>
 import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
-import navbar from '~/components/pages/navbar.vue'
-import pageFooter from '~/components/pages/pageFooter.vue'
-import portfoliosList from '~/components/pages/portfoliosList.vue'
-import modals from '~/components/modal/modals.vue'
 
 export default Vue.extend({
-  components: {
-    navbar,
-    pageFooter,
-    portfoliosList,
-    modals
-  },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
   },
@@ -59,9 +73,6 @@ export default Vue.extend({
     this.fetchGraphickerPortfolios({ graphickerId: this.graphickerId })
   },
   methods: {
-    showAddPortfolioModal() {
-      this.$bvModal.show('bv-modal-add-portfolio')
-    },
     onUpload() {
       this.newPortfolio.avatars = event.target.files
     },

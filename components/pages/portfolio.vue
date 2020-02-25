@@ -3,7 +3,17 @@
     <b-card no-body>
       <b-row>
         <b-col md="4">
-          <b-card-img src="/noimage.png" alt="Card image"></b-card-img>
+          <b-card-img
+            v-if="noAvatars"
+            src="/noimage.png"
+            alt="Card image"
+          ></b-card-img>
+          <b-card-img
+            v-for="avatar in avatars"
+            :key="avatar"
+            :src="avatar"
+            alt="Card image"
+          ></b-card-img>
         </b-col>
         <b-col md="8">
           <b-card-body class="description">
@@ -13,13 +23,56 @@
               </h3>
               {{ show }}</b-card-text
             >
-            <b-button v-if="isOwner" class="edit float-right" variant="primary"
+            <b-button
+              v-if="isOwner"
+              class="edit float-right"
+              variant="primary"
+              @click="showEditPortfolioModal"
               >編集</b-button
             >
           </b-card-body>
         </b-col>
       </b-row>
     </b-card>
+    <b-modal id="bv-modal-edit-portfolio" title="作品・実績編集" hide-footer>
+      <b-form @submit="editPortfolio">
+        <b-form-group
+          label="Title"
+          label-for="title-input"
+          invalid-feedback="Title is required"
+        >
+          <b-form-input
+            id="title-input"
+            v-model="editPortfolio.title"
+            type="text"
+            required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="Show" label-for="show-input">
+          <b-form-textarea
+            id="show-input"
+            v-model="editPortfolio.show"
+            rows="3"
+            type="text"
+          ></b-form-textarea>
+        </b-form-group>
+
+        <b-form-group label="Avatar" label-for="avatar-input">
+          <b-form-file
+            id="avatar-input"
+            v-model="editPortfolio.avatarNames"
+            placeholder="Choose a file or drop it here..."
+            multiple
+            @change="onUpload()"
+          ></b-form-file>
+        </b-form-group>
+
+        <b-button class="float-right" type="submit" variant="primary"
+          >作品・実績編集</b-button
+        >
+      </b-form>
+    </b-modal>
   </div>
 </template>
 
@@ -60,6 +113,11 @@ export default Vue.extend({
         '2019年2月30日、\n白松研究室の修士卒記念に残りの1ヶ月で大学生活を送る後輩が喜ぶアプリを作ろうと、\n2019年度卒の5人が集まって会議を行いました。\nその際、私はグラフィックファシリテーションの取入れを提案し、1時間の会議の進行と記録を行いました。',
       required: true
     },
+    avatars: {
+      type: Array,
+      default: null,
+      required: false
+    },
     graphickerId: {
       type: Number,
       default: 0,
@@ -68,16 +126,30 @@ export default Vue.extend({
   },
   data() {
     return {
+      editPortfolio: {
+        title: '',
+        show: '',
+        avatars: null,
+        avatarNames: null
+      },
       path: '/graphicker/' + this.graphickerId
     }
   },
   computed: {
+    noAvatars() {
+      return !this.avatars
+    },
     isOwner() {
       return this.graphicker ? this.graphicker.id === this.graphickerId : false
     },
     ...mapState('sessionGraphicker', {
       graphicker: 'graphicker'
     })
+  },
+  methods: {
+    showEditPortfolioModal() {
+      this.$bvModal.show('bv-modal-edit-portfolio')
+    }
   }
 })
 </script>

@@ -6,6 +6,7 @@
       :key="portfolio.id"
       :title="portfolio.title"
       :show="portfolio.show"
+      :avatars="portfolio.avatars_url"
       :graphicker-id="portfolio.graphicker_id"
     />
   </div>
