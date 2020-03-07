@@ -9,7 +9,7 @@
       <graphickersList />
     </main>
     <pageFooter />
-    <modals />
+    <sessionModals />
   </b-container>
 </template>
 
@@ -18,14 +18,14 @@ import Vue from 'vue'
 import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
 import graphickersList from '~/components/pages/graphickersList.vue'
-import modals from '~/components/modal/modals.vue'
+import sessionModals from '~/components/modal/sessionModals.vue'
 
 export default Vue.extend({
   components: {
     graphickersList,
     navbar,
     pageFooter,
-    modals
+    sessionModals
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')

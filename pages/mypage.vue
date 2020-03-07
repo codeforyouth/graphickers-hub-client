@@ -86,7 +86,7 @@
       </b-form>
     </main>
     <pageFooter />
-    <modals />
+    <sessionModals />
   </b-container>
 </template>
 
@@ -115,13 +115,13 @@ import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
-import modals from '~/components/modal/modals.vue'
+import sessionModals from '~/components/modal/sessionModals.vue'
 
 export default Vue.extend({
   components: {
     navbar,
     pageFooter,
-    modals
+    sessionModals
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')

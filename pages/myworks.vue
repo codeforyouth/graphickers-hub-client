@@ -12,7 +12,9 @@
       >
     </main>
     <pageFooter />
-    <modals />
+    <sessionModals />
+    <addPortfolioModal />
+    <editPortfolioModal />
   </b-container>
 </template>
 
@@ -22,14 +24,18 @@ import { mapActions, mapState } from 'vuex'
 import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
 import portfoliosList from '~/components/pages/portfoliosList.vue'
-import modals from '~/components/modal/modals.vue'
+import sessionModals from '~/components/modal/sessionModals.vue'
+import addPortfolioModal from '~/components/modal/addPortfolioModal.vue'
+import editPortfolioModal from '~/components/modal/editPortfolioModal.vue'
 
 export default Vue.extend({
   components: {
     navbar,
     pageFooter,
     portfoliosList,
-    modals
+    sessionModals,
+    addPortfolioModal,
+    editPortfolioModal
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
