@@ -11,17 +11,6 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
-            <b-form-input
-              size="sm"
-              class="mr-sm-2"
-              placeholder="検索"
-            ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit"
-              >検索</b-button
-            >
-          </b-nav-form>
-
           <b-nav-item-dropdown v-if="isLogin" right>
             <template v-slot:button-content>
               <em>{{
