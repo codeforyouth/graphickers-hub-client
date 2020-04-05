@@ -2,7 +2,10 @@
   <b-container>
     <b-jumbotron :header="title" :lead="leadMessage" />
     <navbar />
-    <main>
+    <p v-if="isGraphickerLoading">
+      Now Loading...
+    </p>
+    <main v-if="!isGraphickerLoading">
       <section>
         <h2>グラフィッカー情報</h2>
         <b-card no-body>
@@ -32,6 +35,7 @@
       </section>
       <section>
         <h2>作品・実績情報</h2>
+        <p v-if="isPortfoliosLoading">Now Loading...</p>
         <portfoliosList :portfolios="portfolios" />
       </section>
     </main>
@@ -82,10 +86,12 @@ export default Vue.extend({
     ...mapState('graphickers', {
       graphicker: 'graphicker',
       ErrorMessage: 'ErrorMessage',
-      isError: 'isError'
+      isError: 'isError',
+      isGraphickerLoading: 'isLoading'
     }),
     ...mapState('portfolios', {
-      portfolios: 'portfolios'
+      portfolios: 'portfolios',
+      isPortfoliosLoading: 'isLoading'
     })
   },
   mounted() {
