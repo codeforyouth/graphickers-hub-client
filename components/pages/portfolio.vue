@@ -53,7 +53,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default Vue.extend({
   props: {
@@ -109,8 +109,12 @@ export default Vue.extend({
   },
   methods: {
     showEditPortfolioModal() {
+      this.fetchPortfolio({ id: this.id })
       this.$bvModal.show('bv-modal-edit-portfolio')
-    }
+    },
+    ...mapActions('portfolios', {
+      fetchPortfolio: 'fetchPortfolio'
+    })
   }
 })
 </script>

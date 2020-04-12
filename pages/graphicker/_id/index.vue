@@ -41,6 +41,7 @@
     </main>
     <pageFooter />
     <sessionModals />
+    <editPortfolioModal />
   </b-container>
 </template>
 
@@ -60,12 +61,14 @@ import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
 import portfoliosList from '~/components/pages/portfoliosList.vue'
 import sessionModals from '~/components/modal/sessionModals.vue'
+import editPortfolioModal from '~/components/modal/editPortfolioModal.vue'
 
 export default Vue.extend({
   components: {
     navbar,
     pageFooter,
     sessionModals,
+    editPortfolioModal,
     portfoliosList
   },
   fetch({ store }) {

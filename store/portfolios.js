@@ -12,7 +12,9 @@ export const state = () => ({
 })
 
 export const getters = {
-  getId: (state) => state.portfolio
+  getId: (state) => state.portfolio.id,
+  getTitle: (state) => state.portfolio.title,
+  getShow: (state) => state.portfolio.show
 }
 
 export const mutations = {
@@ -31,17 +33,19 @@ export const mutations = {
   },
   setOne(state, portfolio) {
     state.portfolio = portfolio
+  },
+  setTitle(state, title) {
+    state.portfolio.title = title
+  },
+  setShow(state, show) {
+    state.portfolio.show = show
   }
 }
 
 export const actions = {
-  async createPortfolios(
-    { commit },
-    { title, show, avatars, graphickerId, token }
-  ) {
+  async createPortfolios({ commit }, { title, show, graphickerId, token }) {
     commit('startLoading')
 
-    let id = 0
     const portfolio = {
       title,
       show,
@@ -55,7 +59,6 @@ export const actions = {
       })
       .then((res) => {
         commit('setOne', res)
-        id = res.id
       })
       .catch((err) => {
         if (err.response) {
@@ -66,47 +69,6 @@ export const actions = {
           commit('setFetchError', err.message)
         }
       })
-
-    // アバター処理
-    if (avatars) {
-      const formData = new FormData()
-      formData.append('portfolio[graphicker_id]', graphickerId)
-      formData.append('token', token)
-      for (let i = 0; i < avatars.length; i++) {
-        const avatar = avatars[i]
-        formData.append('avatars[]', avatar)
-      }
-      await this.$axios
-        .$put('/api/portfolios/' + id + '/avatars', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        .catch((err) => {
-          if (err.response) {
-            commit('setFetchError', err.response.data)
-          } else if (err.request) {
-            commit('setFetchError', err.request)
-          } else {
-            commit('setFetchError', err.message)
-          }
-        })
-    }
-
-    // リスト再取得
-    await this.$axios
-      .$get('/api/graphickers/' + graphickerId + '/portfolios')
-      .then((res) => {
-        commit('setList', res)
-      })
-      .catch((err) => {
-        if (err.response) {
-          commit('setFetchError', err.response.data)
-        } else if (err.request) {
-          commit('setFetchError', err.request)
-        } else {
-          commit('setFetchError', err.message)
-        }
-      })
-
     commit('endLoading')
   },
   async fetchGraphickerPortfolios({ commit }, { graphickerId }) {
@@ -115,6 +77,53 @@ export const actions = {
       .$get('/api/graphickers/' + graphickerId + '/portfolios')
       .then((res) => {
         commit('setList', res)
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setFetchError', err.response.data)
+        } else if (err.request) {
+          commit('setFetchError', err.request)
+        } else {
+          commit('setFetchError', err.message)
+        }
+      })
+    commit('endLoading')
+  },
+  async updatePortfolio({ commit }, { title, show, id, graphickerId, token }) {
+    commit('startLoading')
+
+    const portfolio = {
+      id,
+      title,
+      show,
+      graphicker_id: graphickerId
+    }
+
+    await this.$axios
+      .$put('/api/portfolios/' + id, {
+        portfolio,
+        token
+      })
+      .then((res) => {
+        commit('setOne', res)
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setFetchError', err.response.data)
+        } else if (err.request) {
+          commit('setFetchError', err.request)
+        } else {
+          commit('setFetchError', err.message)
+        }
+      })
+    commit('endLoading')
+  },
+  async fetchPortfolio({ commit }, { id }) {
+    commit('startLoading')
+    await this.$axios
+      .$get('/api/portfolios/' + id)
+      .then((res) => {
+        commit('setOne', res)
       })
       .catch((err) => {
         if (err.response) {
