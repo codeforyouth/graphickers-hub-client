@@ -1,13 +1,13 @@
 export const state = () => ({
   portfolio: {
     id: 0,
-    title: 'hoge',
-    show: 'hogehoge',
+    title: '',
+    show: '',
     graphicker_id: 0
   },
   portfolios: [],
-  CreateErrorMessage: null,
-  isCreateError: false,
+  ErrorMessage: null,
+  hasError: false,
   isLoading: false
 })
 
@@ -24,15 +24,23 @@ export const mutations = {
   endLoading(state) {
     state.isLoading = false
   },
-  setCreateError(state, ErrorMessage) {
-    state.isCreateError = true
-    state.CreateErrorMessage = ErrorMessage
+  setError(state, ErrorMessage) {
+    state.hasError = true
+    state.ErrorMessage = ErrorMessage
   },
   setList(state, portfolios) {
     state.portfolios = portfolios
   },
   setOne(state, portfolio) {
     state.portfolio = portfolio
+  },
+  initData(state) {
+    state.portfolio = {
+      id: 0,
+      title: '',
+      show: '',
+      graphicker_id: 0
+    }
   },
   setTitle(state, title) {
     state.portfolio.title = title
@@ -62,29 +70,29 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setFetchError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setFetchError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setFetchError', err.message)
+          commit('setError', err.message)
         }
       })
     commit('endLoading')
   },
-  async fetchGraphickerPortfolios({ commit }, { graphickerId }) {
+  async fetchPortfolio({ commit }, { id }) {
     commit('startLoading')
     await this.$axios
-      .$get('/api/graphickers/' + graphickerId + '/portfolios')
+      .$get('/api/portfolios/' + id)
       .then((res) => {
-        commit('setList', res)
+        commit('setOne', res)
       })
       .catch((err) => {
         if (err.response) {
-          commit('setFetchError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setFetchError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setFetchError', err.message)
+          commit('setError', err.message)
         }
       })
     commit('endLoading')
@@ -109,29 +117,54 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setFetchError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setFetchError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setFetchError', err.message)
+          commit('setError', err.message)
         }
       })
     commit('endLoading')
   },
-  async fetchPortfolio({ commit }, { id }) {
+  async destroyPortfolio({ commit }, { id, graphickerId, token }) {
     commit('startLoading')
+
+    const portfolio = {
+      graphicker_id: graphickerId
+    }
+
     await this.$axios
-      .$get('/api/portfolios/' + id)
-      .then((res) => {
-        commit('setOne', res)
+      .$delete('/api/portfolios/' + id, {
+        data: {
+          portfolio,
+          token
+        }
       })
       .catch((err) => {
         if (err.response) {
-          commit('setFetchError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setFetchError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setFetchError', err.message)
+          commit('setError', err.message)
+        }
+      })
+    commit('endLoading')
+  },
+  async fetchGraphickerPortfolios({ commit }, { graphickerId }) {
+    commit('startLoading')
+    await this.$axios
+      .$get('/api/graphickers/' + graphickerId + '/portfolios')
+      .then((res) => {
+        commit('setList', res)
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setError', err.response.data)
+        } else if (err.request) {
+          commit('setError', err.request)
+        } else {
+          commit('setError', err.message)
         }
       })
     commit('endLoading')

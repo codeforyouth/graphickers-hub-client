@@ -42,6 +42,7 @@
     <pageFooter />
     <sessionModals />
     <editPortfolioModal />
+    <deletePortfolioModal />
   </b-container>
 </template>
 
@@ -62,6 +63,7 @@ import pageFooter from '~/components/pages/pageFooter.vue'
 import portfoliosList from '~/components/pages/portfoliosList.vue'
 import sessionModals from '~/components/modal/sessionModals.vue'
 import editPortfolioModal from '~/components/modal/editPortfolioModal.vue'
+import deletePortfolioModal from '~/components/modal/deletePortfolioModal.vue'
 
 export default Vue.extend({
   components: {
@@ -69,6 +71,7 @@ export default Vue.extend({
     pageFooter,
     sessionModals,
     editPortfolioModal,
+    deletePortfolioModal,
     portfoliosList
   },
   fetch({ store }) {

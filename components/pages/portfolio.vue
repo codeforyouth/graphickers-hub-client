@@ -23,13 +23,21 @@
               </h3>
               {{ show }}</b-card-text
             >
-            <b-button
-              v-if="isOwner"
-              class="edit float-right"
-              variant="primary"
-              @click="showEditPortfolioModal"
-              >編集</b-button
-            >
+            <div v-if="isOwner" class="float-right">
+              <b-button
+                class="edit"
+                variant="primary"
+                @click="showEditPortfolioModal"
+                >編集</b-button
+              >
+
+              <b-button
+                class="edit"
+                variant="danger"
+                @click="showDeletePortfolioModal"
+                >削除</b-button
+              >
+            </div>
           </b-card-body>
         </b-col>
       </b-row>
@@ -111,6 +119,10 @@ export default Vue.extend({
     showEditPortfolioModal() {
       this.fetchPortfolio({ id: this.id })
       this.$bvModal.show('bv-modal-edit-portfolio')
+    },
+    showDeletePortfolioModal() {
+      this.fetchPortfolio({ id: this.id })
+      this.$bvModal.show('bv-modal-delete-portfolio')
     },
     ...mapActions('portfolios', {
       fetchPortfolio: 'fetchPortfolio'
