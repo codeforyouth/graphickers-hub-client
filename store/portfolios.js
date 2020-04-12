@@ -101,7 +101,6 @@ export const actions = {
     commit('startLoading')
 
     const portfolio = {
-      id,
       title,
       show,
       graphicker_id: graphickerId
