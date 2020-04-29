@@ -4,6 +4,7 @@ export const state = () => ({
     name: '名前',
     email: 'me@example.com',
     introduction: '自己紹介',
+    avatar_url: null,
     token: 'api-token'
   },
   isLogin: false,
@@ -31,7 +32,13 @@ export const mutations = {
   },
   removeSession(state) {
     state.isLoginError = false
-    state.graphicker = null
+    state.graphicker = {
+      id: 0,
+      name: '名前',
+      email: 'me@example.com',
+      introduction: '自己紹介',
+      token: 'api-token'
+    }
     this.$cookies.remove('session')
     state.isLogin = false
   },
@@ -47,14 +54,17 @@ export const mutations = {
     state.isLoading = false
   },
   setSessionFromCookie(state) {
-    state.graphicker = this.$cookies.get('session')
-    state.isLogin = !!state.graphicker
+    state.graphicker = this.$cookies.get('session') || state.graphicker
+    state.isLogin = !!state.graphicker.id
   },
   updateGraphicker(state, graphicker) {
     state.ErrorMessage = null
     state.isUpdateError = false
     state.graphicker = graphicker
     this.$cookies.set('session', graphicker)
+  },
+  updateGraphickerAvatar(state, avatarUrl) {
+    state.graphicker.avatar_url = avatarUrl
   }
 }
 
@@ -119,41 +129,11 @@ export const actions = {
   },
   async updateGraphicker(
     { commit },
-    {
-      id,
-      email,
-      introduction,
-      newPassword,
-      newPasswordConfirmation,
-      avatar,
-      token
-    }
+    { id, email, introduction, newPassword, newPasswordConfirmation, token }
   ) {
     commit('startLoading')
-    let graphicker = {}
+    const graphicker = {}
 
-    // アバター先処理
-    if (avatar) {
-      const formData = new FormData()
-      formData.append('id', id)
-      formData.append('token', token)
-      formData.append('avatar', avatar)
-      await this.$axios
-        .$put('/api/graphickers/' + id + '/avatar', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        .catch((err) => {
-          if (err.response) {
-            commit('setUpdateError', err.response.data)
-          } else if (err.request) {
-            commit('setUpdateError', err.request)
-          } else {
-            commit('setUpdateError', err.message)
-          }
-        })
-    }
-
-    graphicker = {}
     // API指定の形式に変換。
     // falsyな値は格納しない。
     if (email) {
@@ -187,6 +167,34 @@ export const actions = {
           commit('setUpdateError', err.message)
         }
       })
+
+    commit('endLoading')
+  },
+  async updateGraphickerAvatar({ commit }, { id, avatar, token }) {
+    commit('startLoading')
+
+    if (avatar) {
+      const formData = new FormData()
+      formData.append('id', id)
+      formData.append('token', token)
+      formData.append('avatar', avatar)
+      await this.$axios
+        .$put('/api/graphickers/' + id + '/avatar', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        .then((res) => {
+          commit('updateGraphickerAvatar', res)
+        })
+        .catch((err) => {
+          if (err.response) {
+            commit('setUpdateError', err.response.data)
+          } else if (err.request) {
+            commit('setUpdateError', err.request)
+          } else {
+            commit('setUpdateError', err.message)
+          }
+        })
+    }
 
     commit('endLoading')
   }

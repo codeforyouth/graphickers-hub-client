@@ -41,6 +41,7 @@
     </main>
     <pageFooter />
     <sessionModals />
+    <editPortfolioImageModal />
     <editPortfolioModal />
     <deletePortfolioModal />
   </b-container>
@@ -62,6 +63,7 @@ import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
 import portfoliosList from '~/components/pages/portfoliosList.vue'
 import sessionModals from '~/components/modal/sessionModals.vue'
+import editPortfolioImageModal from '~/components/modal/editPortfolioImageModal.vue'
 import editPortfolioModal from '~/components/modal/editPortfolioModal.vue'
 import deletePortfolioModal from '~/components/modal/deletePortfolioModal.vue'
 
@@ -70,6 +72,7 @@ export default Vue.extend({
     navbar,
     pageFooter,
     sessionModals,
+    editPortfolioImageModal,
     editPortfolioModal,
     deletePortfolioModal,
     portfoliosList

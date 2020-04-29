@@ -27,6 +27,13 @@
               <b-button
                 class="edit"
                 variant="primary"
+                @click="showEditPortfolioImageModal"
+                >画像編集</b-button
+              >
+
+              <b-button
+                class="edit"
+                variant="primary"
                 @click="showEditPortfolioModal"
                 >編集</b-button
               >
@@ -116,6 +123,10 @@ export default Vue.extend({
     })
   },
   methods: {
+    showEditPortfolioImageModal() {
+      this.fetchPortfolio({ id: this.id })
+      this.$bvModal.show('bv-modal-edit-portfolio-image')
+    },
     showEditPortfolioModal() {
       this.fetchPortfolio({ id: this.id })
       this.$bvModal.show('bv-modal-edit-portfolio')

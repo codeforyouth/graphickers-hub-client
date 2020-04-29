@@ -3,7 +3,8 @@ export const state = () => ({
     id: 0,
     title: '',
     show: '',
-    graphicker_id: 0
+    graphicker_id: 0,
+    avatars_url: []
   },
   portfolios: [],
   ErrorMessage: null,
@@ -14,7 +15,8 @@ export const state = () => ({
 export const getters = {
   getId: (state) => state.portfolio.id,
   getTitle: (state) => state.portfolio.title,
-  getShow: (state) => state.portfolio.show
+  getShow: (state) => state.portfolio.show,
+  getAvatars: (state) => state.portfolio.avatars_url
 }
 
 export const mutations = {
@@ -39,7 +41,8 @@ export const mutations = {
       id: 0,
       title: '',
       show: '',
-      graphicker_id: 0
+      graphicker_id: 0,
+      avatars_url: []
     }
   },
   setTitle(state, title) {
@@ -134,6 +137,57 @@ export const actions = {
 
     await this.$axios
       .$delete('/api/portfolios/' + id, {
+        data: {
+          portfolio,
+          token
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setError', err.response.data)
+        } else if (err.request) {
+          commit('setError', err.request)
+        } else {
+          commit('setError', err.message)
+        }
+      })
+    commit('endLoading')
+  },
+  async appendPortfolioImage({ commit }, { id, avatar, graphickerId, token }) {
+    commit('startLoading')
+
+    const formData = new FormData()
+    formData.append('portfolio[graphicker_id]', graphickerId)
+    formData.append('avatar', avatar)
+    formData.append('token', token)
+
+    await this.$axios
+      .$put('/api/portfolios/' + id + '/avatar', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setError', err.response.data)
+        } else if (err.request) {
+          commit('setError', err.request)
+        } else {
+          commit('setError', err.message)
+        }
+      })
+    commit('endLoading')
+  },
+  async deletePortfolioImage(
+    { commit },
+    { id, avatarIndex, graphickerId, token }
+  ) {
+    commit('startLoading')
+
+    const portfolio = {
+      graphicker_id: graphickerId
+    }
+
+    await this.$axios
+      .$delete('/api/portfolios/' + id + '/avatar/' + avatarIndex, {
         data: {
           portfolio,
           token

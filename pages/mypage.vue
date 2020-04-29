@@ -8,17 +8,19 @@
     <main>
       <b-form @submit="onSubmit" @reset="toggleUpdateMode">
         <h2>登録内容</h2>
-        <p v-if="isUpdateMode">変更する箇所を入力してください。</p>
         <b-form-group label="- Avatar" label-for="avatar-input">
+          <b-button class="avatar_upload" @click="triggerAvatarUpload">
+            <b-img :src="avatarUrl" alt="Avatar"></b-img>
+          </b-button>
           <b-form-file
-            v-if="isUpdateMode"
-            id="avatar-input"
-            v-model="form.avatarName"
-            placeholder="Choose a file or drop it here..."
-            @change="onUpload()"
+            id="new-avatar"
+            v-model="newFile"
+            plain
+            @change="onAvatarUpload()"
           ></b-form-file>
-          <b-img v-if="!isUpdateMode" :src="avatarUrl" alt="Avatar"></b-img>
         </b-form-group>
+
+        <p v-if="isUpdateMode">変更する箇所を入力してください。</p>
 
         <b-form-group label="- Email" label-for="email-input">
           <b-form-input
@@ -108,6 +110,15 @@
 .right > * {
   float: right;
 }
+
+.avatar_upload {
+  border: none;
+  padding: 0;
+}
+
+#new-avatar {
+  display: none;
+}
 </style>
 
 <script>
@@ -137,6 +148,7 @@ export default Vue.extend({
         newPasswordConfirmation: ''
       },
       id: this.$store.getters['sessionGraphicker/getId'],
+      newFile: null,
       token: this.$store.getters['sessionGraphicker/getToken'],
       isUpdateMode: false
     }
@@ -174,6 +186,27 @@ export default Vue.extend({
     onUpload() {
       this.form.avatar = event.target.files[0]
     },
+    triggerAvatarUpload() {
+      const newAvatarInput = document.querySelector('#new-avatar')
+      newAvatarInput.click()
+    },
+    async onAvatarUpload() {
+      const avatar = event.target.files[0]
+
+      await this.updateGraphickerAvatar({
+        id: this.id,
+        avatar,
+        graphickerId: this.graphickerId,
+        token: this.token
+      })
+
+      // 登録失敗
+      if (this.isCreateError) {
+        return
+      }
+
+      this.newFile = null
+    },
     toggleUpdateMode() {
       event.preventDefault()
 
@@ -187,7 +220,8 @@ export default Vue.extend({
       this.isUpdateMode = !this.isUpdateMode
     },
     ...mapActions('sessionGraphicker', {
-      updateGraphicker: 'updateGraphicker'
+      updateGraphicker: 'updateGraphicker',
+      updateGraphickerAvatar: 'updateGraphickerAvatar'
     })
   }
 })
