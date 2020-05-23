@@ -72,7 +72,7 @@ export const actions = {
   async loginGraphicker({ commit }, { name, password }) {
     commit('startLoading')
     await this.$axios
-      .$post('/api/login', {
+      .$post('/login', {
         name,
         password
       })
@@ -93,7 +93,7 @@ export const actions = {
   async logoutGraphicker({ commit }, { id, token }) {
     commit('startLoading')
     commit('removeSession')
-    await this.$axios.$post('/api/logout', {
+    await this.$axios.$post('/logout', {
       id,
       token
     })
@@ -108,7 +108,7 @@ export const actions = {
   ) {
     commit('startLoading')
     await this.$axios
-      .$post('/api/graphickers', {
+      .$post('/graphickers', {
         graphicker: {
           name,
           email,
@@ -150,7 +150,7 @@ export const actions = {
     }
 
     await this.$axios
-      .$put('/api/graphickers/' + id, {
+      .$put('/graphickers/' + id, {
         graphicker,
         id,
         token
@@ -179,7 +179,7 @@ export const actions = {
       formData.append('token', token)
       formData.append('avatar', avatar)
       await this.$axios
-        .$put('/api/graphickers/' + id + '/avatar', formData, {
+        .$put('/graphickers/' + id + '/avatar', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {

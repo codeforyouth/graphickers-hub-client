@@ -38,7 +38,7 @@ export const actions = {
   async fetchGraphickers({ commit }) {
     commit('startLoading')
     await this.$axios
-      .$get('/api/graphickers')
+      .$get('/graphickers')
       .then((res) => {
         commit('setAll', res)
       })
@@ -56,7 +56,7 @@ export const actions = {
   async fetchGraphicker({ commit }, { id }) {
     commit('startLoading')
     await this.$axios
-      .$get('/api/graphickers/' + id)
+      .$get('/graphickers/' + id)
       .then((res) => {
         commit('setOne', res)
       })

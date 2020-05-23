@@ -64,7 +64,7 @@ export const actions = {
     }
 
     await this.$axios
-      .$post('/api/portfolios', {
+      .$post('/portfolios', {
         portfolio,
         token
       })
@@ -85,7 +85,7 @@ export const actions = {
   async fetchPortfolio({ commit }, { id }) {
     commit('startLoading')
     await this.$axios
-      .$get('/api/portfolios/' + id)
+      .$get('/portfolios/' + id)
       .then((res) => {
         commit('setOne', res)
       })
@@ -110,7 +110,7 @@ export const actions = {
     }
 
     await this.$axios
-      .$put('/api/portfolios/' + id, {
+      .$put('/portfolios/' + id, {
         portfolio,
         token
       })
@@ -136,7 +136,7 @@ export const actions = {
     }
 
     await this.$axios
-      .$delete('/api/portfolios/' + id, {
+      .$delete('/portfolios/' + id, {
         data: {
           portfolio,
           token
@@ -162,7 +162,7 @@ export const actions = {
     formData.append('token', token)
 
     await this.$axios
-      .$put('/api/portfolios/' + id + '/avatar', formData, {
+      .$put('/portfolios/' + id + '/avatar', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       .catch((err) => {
@@ -187,7 +187,7 @@ export const actions = {
     }
 
     await this.$axios
-      .$delete('/api/portfolios/' + id + '/avatar/' + avatarIndex, {
+      .$delete('/portfolios/' + id + '/avatar/' + avatarIndex, {
         data: {
           portfolio,
           token
@@ -207,7 +207,7 @@ export const actions = {
   async fetchGraphickerPortfolios({ commit }, { graphickerId }) {
     commit('startLoading')
     await this.$axios
-      .$get('/api/graphickers/' + graphickerId + '/portfolios')
+      .$get('/graphickers/' + graphickerId + '/portfolios')
       .then((res) => {
         commit('setList', res)
       })
