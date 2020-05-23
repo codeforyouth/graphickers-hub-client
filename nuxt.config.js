@@ -1,3 +1,9 @@
+const environment = process.env.NODE_ENV
+const baseUrl =
+  environment === 'development'
+    ? 'http://localhost:3001'
+    : 'http://18.179.20.86:3001/'
+
 export default {
   mode: 'spa',
   /*
@@ -53,7 +59,7 @@ export default {
     proxy: true
   },
   proxy: {
-    '/api/': { target: 'http://localhost:3001', pathRewrite: { '^/api/': '' } }
+    '/api/': { target: baseUrl, pathRewrite: { '^/api/': '' } }
   },
   /*
    ** Build configuration
