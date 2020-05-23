@@ -1,8 +1,6 @@
 const environment = process.env.NODE_ENV
 const baseUrl =
-  environment === 'development'
-    ? 'http://localhost:3001'
-    : 'http://18.179.20.86:3001/'
+  environment === 'development' ? '//localhost:3001' : '//18.179.20.86:3001/'
 
 export default {
   mode: 'spa',
