@@ -1,6 +1,8 @@
 const environment = process.env.NODE_ENV
 const baseURL =
-  environment === 'development' ? '//localhost:3001' : '//18.179.20.86:3001/'
+  environment === 'development'
+    ? '//localhost:3001'
+    : '//api.graphickers-hub.net/'
 
 export default {
   mode: 'spa',
