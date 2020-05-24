@@ -1,5 +1,5 @@
 const environment = process.env.NODE_ENV
-const baseUrl =
+const baseURL =
   environment === 'development' ? '//localhost:3001' : '//18.179.20.86:3001/'
 
 export default {
@@ -54,7 +54,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: baseUrl
+    baseURL
   },
   /*
    ** Build configuration
