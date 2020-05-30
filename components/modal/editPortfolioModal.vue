@@ -2,7 +2,7 @@
   <b-modal id="bv-modal-edit-portfolio" title="作品・実績編集" hide-footer>
     <b-form @submit="editPortfolio">
       <b-form-group
-        label="Title"
+        label="イベント名"
         label-for="title-input"
         invalid-feedback="Title is required"
       >
@@ -14,10 +14,13 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group label="Show" label-for="show-input">
+      <b-form-group label="イベント詳細" label-for="show-input">
         <b-form-textarea
           id="show-input"
           v-model="show"
+          placeholder="どういうイベントか。
+どういうところに気を付けたか。
+使っているツールは何か。etc…"
           rows="3"
           type="text"
         ></b-form-textarea>

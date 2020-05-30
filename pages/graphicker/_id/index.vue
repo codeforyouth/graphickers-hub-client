@@ -20,11 +20,11 @@
                 <b-card-text>
                   <h2 class="name">{{ graphicker.name }}</h2>
                   <section class="self-introduction">
-                    <h5>- 自己紹介</h5>
+                    <h5>- 興味・関心のある分野</h5>
                     <p>{{ graphicker.introduction }}</p>
                   </section>
                   <section class="equipment">
-                    <h5>- 道具紹介</h5>
+                    <h5>- 使っている道具(ペン・ペンケース等)</h5>
                     <p>{{ graphicker.equipment }}</p>
                   </section>
                   <section class="contact">

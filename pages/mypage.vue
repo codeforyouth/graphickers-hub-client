@@ -40,6 +40,7 @@
             v-if="isUpdateMode"
             id="introduction-input"
             v-model="form.introduction"
+            placeholder="どんな仕事を受けてみたいか"
             rows="3"
             type="text"
           ></b-form-textarea>
@@ -54,6 +55,9 @@
             v-if="isUpdateMode"
             id="equipment-input"
             v-model="form.equipment"
+            placeholder="使っているペンは何か。
+イベントの際にペンをどのように持ち運ぶか。
+ペン以外に何か使っているか"
             rows="3"
             type="text"
           ></b-form-textarea>
