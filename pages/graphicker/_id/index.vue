@@ -23,6 +23,10 @@
                     <h5>- 自己紹介</h5>
                     <p>{{ graphicker.introduction }}</p>
                   </section>
+                  <section class="equipment">
+                    <h5>- 道具紹介</h5>
+                    <p>{{ graphicker.equipment }}</p>
+                  </section>
                   <section class="contact">
                     <h5>- 連絡先</h5>
                     <p>{{ graphicker.email }}</p>

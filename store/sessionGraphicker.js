@@ -4,6 +4,7 @@ export const state = () => ({
     name: '名前',
     email: 'me@example.com',
     introduction: '自己紹介',
+    equipment: '装備紹介',
     avatar_url: null,
     token: 'api-token'
   },
@@ -19,6 +20,7 @@ export const getters = {
   getName: (state) => state.graphicker.name,
   getEmail: (state) => state.graphicker.email,
   getIntroduction: (state) => state.graphicker.introduction,
+  getEquipment: (state) => state.graphicker.equipment,
   getToken: (state) => state.graphicker.token,
   getAvatar: (state) => state.graphicker.avatar_url
 }
@@ -37,6 +39,7 @@ export const mutations = {
       name: '名前',
       email: 'me@example.com',
       introduction: '自己紹介',
+      equipment: '装備紹介',
       token: 'api-token'
     }
     this.$cookies.remove('session')
@@ -129,7 +132,15 @@ export const actions = {
   },
   async updateGraphicker(
     { commit },
-    { id, email, introduction, newPassword, newPasswordConfirmation, token }
+    {
+      id,
+      email,
+      introduction,
+      equipment,
+      newPassword,
+      newPasswordConfirmation,
+      token
+    }
   ) {
     commit('startLoading')
     const graphicker = {}
@@ -141,6 +152,9 @@ export const actions = {
     }
     if (introduction) {
       graphicker.introduction = introduction
+    }
+    if (equipment) {
+      graphicker.equipment = equipment
     }
     if (newPassword) {
       graphicker.password = newPassword

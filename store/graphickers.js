@@ -4,6 +4,7 @@ export const state = () => ({
     name: '名前',
     email: 'me@example.com',
     introduction: '自己紹介',
+    equipment: '装備紹介',
     avatar_url: null,
     token: 'api-token'
   },

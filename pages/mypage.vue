@@ -8,7 +8,7 @@
     <main>
       <b-form @submit="onSubmit" @reset="toggleUpdateMode">
         <h2>登録内容</h2>
-        <b-form-group label="- Avatar" label-for="avatar-input">
+        <b-form-group label="- アバター" label-for="avatar-input">
           <b-button class="avatar_upload" @click="triggerAvatarUpload">
             <b-img :src="avatarUrl" alt="Avatar"></b-img>
           </b-button>
@@ -22,7 +22,7 @@
 
         <p v-if="isUpdateMode">変更する箇所を入力してください。</p>
 
-        <b-form-group label="- Email" label-for="email-input">
+        <b-form-group label="- メールアドレス" label-for="email-input">
           <b-form-input
             v-if="isUpdateMode"
             id="email-input"
@@ -32,7 +32,10 @@
           <span v-if="!isUpdateMode">{{ form.email }}</span>
         </b-form-group>
 
-        <b-form-group label="- Introduction" label-for="introduction-input">
+        <b-form-group
+          label="- 興味・関心のある分野"
+          label-for="introduction-input"
+        >
           <b-form-textarea
             v-if="isUpdateMode"
             id="introduction-input"
@@ -41,6 +44,20 @@
             type="text"
           ></b-form-textarea>
           <span v-if="!isUpdateMode">{{ form.introduction }}</span>
+        </b-form-group>
+
+        <b-form-group
+          label="- 使っている道具(ペン・ペンケース等)"
+          label-for="equipment-input"
+        >
+          <b-form-textarea
+            v-if="isUpdateMode"
+            id="equipment-input"
+            v-model="form.equipment"
+            rows="3"
+            type="text"
+          ></b-form-textarea>
+          <span v-if="!isUpdateMode">{{ form.equipment }}</span>
         </b-form-group>
 
         <b-form-group
@@ -144,6 +161,7 @@ export default Vue.extend({
         avatarName: null,
         email: this.$store.getters['sessionGraphicker/getEmail'],
         introduction: this.$store.getters['sessionGraphicker/getIntroduction'],
+        equipment: this.$store.getters['sessionGraphicker/getEquipment'],
         newPassword: '',
         newPasswordConfirmation: ''
       },
@@ -173,6 +191,7 @@ export default Vue.extend({
         id: this.id,
         email: this.form.email ? this.form.email : null,
         introduction: this.form.introduction ? this.form.introduction : null,
+        equipment: this.form.equipment ? this.form.equipment : null,
         newPassword: this.form.newPassword ? this.form.newPassword : null,
         newPasswordConfirmation: this.form.newPasswordConfirmation
           ? this.form.newPasswordConfirmation
