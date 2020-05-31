@@ -66,7 +66,7 @@
 
         <b-form-group
           v-if="isUpdateMode"
-          label="- NewPassword"
+          label="- 新パスワード"
           label-for="new-password-input"
         >
           <b-form-input
@@ -78,7 +78,7 @@
 
         <b-form-group
           v-if="isUpdateMode"
-          label="- NewPasswordConfirmation"
+          label="- 新パスワード確認"
           label-for="new-password-confirmation-input"
           invalid-feedback="Password Confirmation is required"
         >
@@ -95,11 +95,17 @@
 
         <div class="right">
           <b-button-group>
+            <b-button
+              v-if="!isUpdateMode"
+              variant="danger"
+              @click="destroyGraphicker"
+              >アカウント削除</b-button
+            >
             <b-button v-if="!isUpdateMode" variant="primary" type="reset"
               >登録内容変更</b-button
             >
             <b-button v-if="isUpdateMode" variant="secondary" type="reset"
-              >取消</b-button
+              >変更取消</b-button
             >
             <b-button v-if="isUpdateMode" type="submit" variant="primary"
               >更新</b-button
@@ -110,6 +116,7 @@
     </main>
     <pageFooter />
     <sessionModals />
+    <deleteGraphickerModal />
   </b-container>
 </template>
 
@@ -148,12 +155,14 @@ import { mapActions, mapState } from 'vuex'
 import navbar from '~/components/pages/navbar.vue'
 import pageFooter from '~/components/pages/pageFooter.vue'
 import sessionModals from '~/components/modal/sessionModals.vue'
+import deleteGraphickerModal from '~/components/modal/deleteGraphickerModal.vue'
 
 export default Vue.extend({
   components: {
     navbar,
     pageFooter,
-    sessionModals
+    sessionModals,
+    deleteGraphickerModal
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
@@ -241,6 +250,9 @@ export default Vue.extend({
       this.form.newPasswordConfirmation = ''
 
       this.isUpdateMode = !this.isUpdateMode
+    },
+    destroyGraphicker() {
+      this.$bvModal.show('bv-modal-delete-graphicker')
     },
     ...mapActions('sessionGraphicker', {
       updateGraphicker: 'updateGraphicker',

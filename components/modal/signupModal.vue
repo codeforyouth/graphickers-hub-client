@@ -3,9 +3,9 @@
     <b-form @submit="onSubmit" @reset="onReset">
       <h2>新規登録</h2>
       <b-form-group
-        label="Name"
+        label="アカウント名"
         label-for="name-input"
-        invalid-feedback="Name is required"
+        invalid-feedback="アカウント名は必須です"
       >
         <b-form-input
           id="name-input"
@@ -16,9 +16,9 @@
       </b-form-group>
 
       <b-form-group
-        label="Email"
+        label="メールアドレス"
         label-for="email-input"
-        invalid-feedback="Email is required"
+        invalid-feedback="メールアドレスは必須です"
       >
         <b-form-input
           id="email-input"
@@ -29,9 +29,9 @@
       </b-form-group>
 
       <b-form-group
-        label="Password"
+        label="パスワード"
         label-for="password-input"
-        invalid-feedback="Password is required"
+        invalid-feedback="パスワードは必須です"
       >
         <b-form-input
           id="password-input"
@@ -42,9 +42,9 @@
       </b-form-group>
 
       <b-form-group
-        label="PasswordConfirmation"
+        label="パスワード(確認)"
         label-for="password-confirmation-input"
-        invalid-feedback="Password Confirmation is required"
+        invalid-feedback="パスワード(確認)は必須です"
       >
         <b-form-input
           id="confirmation"
@@ -114,6 +114,8 @@ export default Vue.extend({
       })
 
       this.$bvModal.hide('bv-modal-signup')
+
+      this.$router.push('/mypage')
     },
     onReset(event) {
       event.preventDefault()

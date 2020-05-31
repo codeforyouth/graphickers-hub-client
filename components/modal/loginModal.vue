@@ -3,9 +3,9 @@
     <b-form @submit="onSubmit" @reset="onReset">
       <h2>ログイン</h2>
       <b-form-group
-        label="Name"
+        label="アカウント名"
         label-for="name-input"
-        invalid-feedback="Name is required"
+        invalid-feedback="アカウント名は必須です"
       >
         <b-form-input
           id="name-input"
@@ -15,9 +15,9 @@
         ></b-form-input>
       </b-form-group>
       <b-form-group
-        label="Password"
+        label="パスワード"
         label-for="password-input"
-        invalid-feedback="Password is required"
+        invalid-feedback="パスワードは必須です"
       >
         <b-form-input
           id="password-input"
