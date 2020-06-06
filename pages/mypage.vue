@@ -71,7 +71,7 @@
         >
           <b-form-input
             id="new-password-input"
-            v-model="form.newpassword"
+            v-model="form.newPassword"
             type="password"
           ></b-form-input>
         </b-form-group>
