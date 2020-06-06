@@ -64,10 +64,11 @@ export const mutations = {
     state.ErrorMessage = null
     state.isUpdateError = false
     state.graphicker = graphicker
-    this.$cookies.set('session', graphicker)
+    this.$cookies.set('session', state.graphicker)
   },
   updateGraphickerAvatar(state, avatarUrl) {
     state.graphicker.avatar_url = avatarUrl
+    this.$cookies.set('session', state.graphicker)
   }
 }
 
