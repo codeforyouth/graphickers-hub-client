@@ -15,6 +15,8 @@
     <sessionModals />
     <addPortfolioModal />
     <editPortfolioModal />
+    <editPortfolioImageModal />
+    <deletePortfolioModal />
   </b-container>
 </template>
 
@@ -27,6 +29,8 @@ import portfoliosList from '~/components/pages/portfoliosList.vue'
 import sessionModals from '~/components/modal/sessionModals.vue'
 import addPortfolioModal from '~/components/modal/addPortfolioModal.vue'
 import editPortfolioModal from '~/components/modal/editPortfolioModal.vue'
+import editPortfolioImageModal from '~/components/modal/editPortfolioImageModal.vue'
+import deletePortfolioModal from '~/components/modal/deletePortfolioModal.vue'
 
 export default Vue.extend({
   components: {
@@ -35,7 +39,9 @@ export default Vue.extend({
     portfoliosList,
     sessionModals,
     addPortfolioModal,
-    editPortfolioModal
+    editPortfolioModal,
+    editPortfolioImageModal,
+    deletePortfolioModal
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')

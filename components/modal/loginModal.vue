@@ -77,6 +77,8 @@ export default Vue.extend({
       }
 
       this.$bvModal.hide('bv-modal-login')
+
+      this.$router.push('/mypage')
     },
     onReset(event) {
       event.preventDefault()
