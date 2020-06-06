@@ -68,6 +68,8 @@ export default Vue.extend({
         id: this.graphicker.id,
         token: this.graphicker.token
       })
+
+      this.$router.push('/')
     },
     ...mapActions('sessionGraphicker', {
       logoutGraphicker: 'logoutGraphicker',
