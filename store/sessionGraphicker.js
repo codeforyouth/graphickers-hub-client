@@ -63,7 +63,11 @@ export const mutations = {
   updateGraphicker(state, graphicker) {
     state.ErrorMessage = null
     state.isUpdateError = false
+
+    const token = state.graphicker.token
+    graphicker.token = token
     state.graphicker = graphicker
+
     this.$cookies.set('session', state.graphicker)
   },
   updateGraphickerAvatar(state, avatarUrl) {
