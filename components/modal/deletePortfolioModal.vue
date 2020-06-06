@@ -40,7 +40,7 @@ export default Vue.extend({
         token: this.token
       })
 
-      // 登録失敗
+      // 削除失敗
       if (this.isUpdateError) {
         return
       }

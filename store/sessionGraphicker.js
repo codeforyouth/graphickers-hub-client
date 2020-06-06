@@ -121,11 +121,11 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setSignUpError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setSignUpError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setSignUpError', err.message)
+          commit('setError', err.message)
         }
       })
     commit('endLoading')
@@ -174,11 +174,11 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setUpdateError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setUpdateError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setUpdateError', err.message)
+          commit('setError', err.message)
         }
       })
 
@@ -201,15 +201,35 @@ export const actions = {
         })
         .catch((err) => {
           if (err.response) {
-            commit('setUpdateError', err.response.data)
+            commit('setError', err.response.data)
           } else if (err.request) {
-            commit('setUpdateError', err.request)
+            commit('setError', err.request)
           } else {
-            commit('setUpdateError', err.message)
+            commit('setError', err.message)
           }
         })
     }
 
+    commit('endLoading')
+  },
+  async destroyGraphicker({ commit }, { id, token }) {
+    commit('startLoading')
+    await this.$axios
+      .$delete('/graphickers/' + id, {
+        graphicker: {
+          token
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setError', err.response.data)
+        } else if (err.request) {
+          commit('setError', err.request)
+        } else {
+          commit('setError', err.message)
+        }
+      })
+    commit('removeSession')
     commit('endLoading')
   }
 }
