@@ -22,11 +22,16 @@
 
         <p v-if="isUpdateMode">変更する箇所を入力してください。</p>
 
-        <b-form-group label="- メールアドレス" label-for="email-input">
+        <b-form-group
+          label="- メールアドレス"
+          label-for="email-input"
+          invalid-feedback="メールアドレスは'hogehoge@example.com'という形式で入力してください"
+        >
           <b-form-input
             v-if="isUpdateMode"
             id="email-input"
             v-model="form.email"
+            :state="checkEmail"
             type="text"
           ></b-form-input>
           <span v-if="!isUpdateMode">{{ form.email }}</span>
@@ -68,10 +73,12 @@
           v-if="isUpdateMode"
           label="- 新パスワード"
           label-for="new-password-input"
+          invalid-feedback="パスワードは8文字以上で入力してください"
         >
           <b-form-input
             id="new-password-input"
             v-model="form.newPassword"
+            :state="checkPassword"
             type="password"
           ></b-form-input>
         </b-form-group>
@@ -80,12 +87,14 @@
           v-if="isUpdateMode"
           label="- 新パスワード確認"
           label-for="new-password-confirmation-input"
-          invalid-feedback="Password Confirmation is required"
+          invalid-feedback="パスワードが一致していません"
         >
           <b-form-input
             id="new-password-confirmation"
             v-model="form.newPasswordConfirmation"
+            :state="checkPasswordConfirmation"
             type="password"
+            required
           ></b-form-input>
         </b-form-group>
 
@@ -185,6 +194,19 @@ export default Vue.extend({
     }
   },
   computed: {
+    checkEmail() {
+      return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        this.form.email
+      )
+    },
+    checkPassword() {
+      return (
+        this.form.newPassword.length === 0 || this.form.newPassword.length > 7
+      )
+    },
+    checkPasswordConfirmation() {
+      return this.form.newPassword === this.form.newPasswordConfirmation
+    },
     avatarUrl() {
       return this.graphicker.avatar_url
         ? this.graphicker.avatar_url
