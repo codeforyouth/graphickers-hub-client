@@ -10,6 +10,7 @@
         <b-form-input
           id="name-input"
           v-model="signup.name"
+          :state="checkName"
           type="text"
           required
         ></b-form-input>
@@ -18,11 +19,12 @@
       <b-form-group
         label="メールアドレス"
         label-for="email-input"
-        invalid-feedback="メールアドレスは必須です"
+        invalid-feedback="メールアドレスは'hogehoge@example.com'という形式で入力してください"
       >
         <b-form-input
           id="email-input"
           v-model="signup.email"
+          :state="checkEmail"
           type="text"
           required
         ></b-form-input>
@@ -31,11 +33,12 @@
       <b-form-group
         label="パスワード"
         label-for="password-input"
-        invalid-feedback="パスワードは必須です"
+        invalid-feedback="パスワードは8文字以上で入力してください"
       >
         <b-form-input
           id="password-input"
           v-model="signup.password"
+          :state="checkPassword"
           type="password"
           required
         ></b-form-input>
@@ -44,11 +47,12 @@
       <b-form-group
         label="パスワード(確認)"
         label-for="password-confirmation-input"
-        invalid-feedback="パスワード(確認)は必須です"
+        invalid-feedback="パスワードが一致していません"
       >
         <b-form-input
           id="confirmation"
           v-model="signup.passwordConfirmation"
+          :state="checkPasswordConfirmation"
           type="password"
           required
         ></b-form-input>
@@ -85,6 +89,20 @@ export default Vue.extend({
     }
   },
   computed: {
+    checkName() {
+      return this.signup.name.length > 0
+    },
+    checkEmail() {
+      return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        this.signup.email
+      )
+    },
+    checkPassword() {
+      return this.signup.password.length > 7
+    },
+    checkPasswordConfirmation() {
+      return this.signup.password === this.signup.passwordConfirmation
+    },
     ...mapState('sessionGraphicker', {
       ErrorMessage: 'ErrorMessage',
       isSignupError: 'isSignupError'
