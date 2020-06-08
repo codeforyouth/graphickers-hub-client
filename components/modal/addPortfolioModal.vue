@@ -57,7 +57,7 @@ export default Vue.extend({
     }),
     ...mapState('portfolios', {
       portfolios: 'portfolios',
-      isCreateError: 'isCreateError'
+      isError: 'isError'
     })
   },
   mounted() {
@@ -75,7 +75,7 @@ export default Vue.extend({
       })
 
       // 登録失敗
-      if (this.isCreateError) {
+      if (this.isError) {
         return
       }
 

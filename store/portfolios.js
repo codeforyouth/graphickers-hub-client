@@ -8,7 +8,7 @@ export const state = () => ({
   },
   portfolios: [],
   ErrorMessage: null,
-  hasError: false,
+  isError: false,
   isLoading: false
 })
 
@@ -27,7 +27,7 @@ export const mutations = {
     state.isLoading = false
   },
   setError(state, ErrorMessage) {
-    state.hasError = true
+    state.isError = true
     state.ErrorMessage = ErrorMessage
   },
   setList(state, portfolios) {

@@ -9,8 +9,8 @@ export const state = () => ({
     token: 'api-token'
   },
   graphickers: [],
-  FetchErrorMessage: null,
-  isFetchError: false,
+  ErrorMessage: null,
+  isError: false,
   isLoading: false
 })
 
@@ -23,9 +23,9 @@ export const mutations = {
     state.isError = false
     state.graphicker = graphicker
   },
-  setFetchError(state, ErrorMessage) {
-    state.isFetchError = true
-    state.FetchErrorMessage = ErrorMessage
+  setError(state, ErrorMessage) {
+    state.isError = true
+    state.ErrorMessage = ErrorMessage
   },
   startLoading(state) {
     state.isLoading = true
@@ -45,11 +45,11 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setFetchError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setFetchError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setFetchError', err.message)
+          commit('setError', err.message)
         }
       })
     commit('endLoading')
@@ -63,11 +63,11 @@ export const actions = {
       })
       .catch((err) => {
         if (err.response) {
-          commit('setFetchError', err.response.data)
+          commit('setError', err.response.data)
         } else if (err.request) {
-          commit('setFetchError', err.request)
+          commit('setError', err.request)
         } else {
-          commit('setFetchError', err.message)
+          commit('setError', err.message)
         }
       })
     commit('endLoading')

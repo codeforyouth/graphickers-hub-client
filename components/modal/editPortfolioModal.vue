@@ -80,7 +80,7 @@ export default Vue.extend({
       })
 
       // 登録失敗
-      if (this.isUpdateError) {
+      if (this.isError) {
         return
       }
 

@@ -58,7 +58,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <span v-if="isSignupError" class="error-message">{{ ErrorMessage }}</span>
+      <span v-if="isError" class="error-message">{{ ErrorMessage }}</span>
 
       <b-button class="float-right" type="submit" variant="primary"
         >新規登録</b-button
@@ -105,7 +105,7 @@ export default Vue.extend({
     },
     ...mapState('sessionGraphicker', {
       ErrorMessage: 'ErrorMessage',
-      isSignupError: 'isSignupError'
+      isError: 'isError'
     })
   },
   methods: {
@@ -121,7 +121,7 @@ export default Vue.extend({
       })
 
       // 新規登録失敗
-      if (this.isSignupError) {
+      if (this.isError) {
         return
       }
 

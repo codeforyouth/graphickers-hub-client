@@ -10,8 +10,7 @@ export const state = () => ({
   },
   isLogin: false,
   ErrorMessage: null,
-  isLoginError: false,
-  isUpdateError: false,
+  isError: false,
   isLoading: false
 })
 
@@ -27,13 +26,13 @@ export const getters = {
 
 export const mutations = {
   setSession(state, graphicker) {
-    state.isLoginError = false
+    state.isError = false
     state.graphicker = graphicker
     this.$cookies.set('session', graphicker)
     state.isLogin = true
   },
   removeSession(state) {
-    state.isLoginError = false
+    state.isError = false
     state.graphicker = {
       id: 0,
       name: '名前',
@@ -46,7 +45,7 @@ export const mutations = {
     state.isLogin = false
   },
   setError(state, ErrorMessage) {
-    state.isLoginError = true
+    state.isError = true
     state.ErrorMessage = ErrorMessage
     state.isLogin = false
   },
@@ -62,7 +61,7 @@ export const mutations = {
   },
   updateGraphicker(state, graphicker) {
     state.ErrorMessage = null
-    state.isUpdateError = false
+    state.isError = false
 
     const token = state.graphicker.token
     graphicker.token = token
