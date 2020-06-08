@@ -94,7 +94,6 @@
             v-model="form.newPasswordConfirmation"
             :state="checkPasswordConfirmation"
             type="password"
-            required
           ></b-form-input>
         </b-form-group>
 
@@ -212,7 +211,8 @@ export default Vue.extend({
     },
     ...mapState('sessionGraphicker', {
       graphicker: 'graphicker',
-      isError: 'isError'
+      isError: 'isError',
+      ErrorMessage: 'ErrorMessage'
     })
   },
   methods: {
