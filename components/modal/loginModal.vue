@@ -27,7 +27,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <span v-if="isLoginError" class="error-message">{{ ErrorMessage }}</span>
+      <span v-if="isError" class="error-message">{{ ErrorMessage }}</span>
 
       <b-button class="float-right" type="submit" variant="primary"
         >ログイン</b-button
@@ -58,7 +58,7 @@ export default Vue.extend({
   computed: {
     ...mapState('sessionGraphicker', {
       ErrorMessage: 'ErrorMessage',
-      isLoginError: 'isLoginError'
+      isError: 'isError'
     })
   },
   methods: {
@@ -72,7 +72,7 @@ export default Vue.extend({
       })
 
       // ログイン失敗
-      if (this.isLoginError) {
+      if (this.isError) {
         return
       }
 

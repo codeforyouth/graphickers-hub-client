@@ -98,9 +98,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <span v-if="isUpdateError" class="error-message">{{
-          ErrorMessage
-        }}</span>
+        <span v-if="isError" class="error-message">{{ ErrorMessage }}</span>
 
         <div class="right">
           <b-button-group>
@@ -214,7 +212,7 @@ export default Vue.extend({
     },
     ...mapState('sessionGraphicker', {
       graphicker: 'graphicker',
-      isUpdateError: 'isUpdateError'
+      isError: 'isError'
     })
   },
   methods: {
@@ -255,7 +253,7 @@ export default Vue.extend({
       })
 
       // 登録失敗
-      if (this.isCreateError) {
+      if (this.isError) {
         return
       }
 
