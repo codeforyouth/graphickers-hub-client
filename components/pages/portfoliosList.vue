@@ -6,6 +6,8 @@
       :key="portfolio.id"
       :title="portfolio.title"
       :show="portfolio.show"
+      :place="portfolio.place"
+      :event-date="portfolio.event_date"
       :avatars="portfolio.avatars_url"
       :graphicker-id="portfolio.graphicker_id"
     />

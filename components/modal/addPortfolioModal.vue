@@ -26,6 +26,22 @@
         ></b-form-textarea>
       </b-form-group>
 
+      <b-form-group label="場所" label-for="place-input">
+        <b-form-input
+          id="title-input"
+          v-model="newPortfolio.place"
+          type="text"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="日付" label-for="event-date-input">
+        <b-form-input
+          id="event-date-input"
+          v-model="newPortfolio.eventDate"
+          type="date"
+        ></b-form-input>
+      </b-form-group>
+
       <b-button class="float-right" type="submit" variant="primary"
         >作品・実績追加</b-button
       >
@@ -45,7 +61,9 @@ export default Vue.extend({
     return {
       newPortfolio: {
         title: '',
-        show: ''
+        show: '',
+        place: '',
+        eventDate: ''
       },
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
       token: this.$store.getters['sessionGraphicker/getToken']
@@ -70,6 +88,8 @@ export default Vue.extend({
       await this.createPortfolios({
         title: this.newPortfolio.title,
         show: this.newPortfolio.show,
+        place: this.newPortfolio.place,
+        eventDate: this.newPortfolio.eventDate,
         graphickerId: this.graphickerId,
         token: this.token
       })

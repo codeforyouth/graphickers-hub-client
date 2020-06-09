@@ -21,9 +21,14 @@
               <h3>
                 <nuxt-link :to="path">{{ title }}</nuxt-link>
               </h3>
-              {{ show }}</b-card-text
-            >
-            <div v-if="isOwner" class="float-right">
+              {{ show }}
+            </b-card-text>
+            <div class="dateandplace">
+              - {{ eventDate ? eventDate : '日付未登録' }} @{{
+                place ? place : '場所未登録'
+              }}
+            </div>
+            <div v-if="isOwner" class="float-right editButtonGroup">
               <b-button
                 class="edit"
                 variant="primary"
@@ -61,6 +66,13 @@
 .description {
   height: 100%;
 }
+.dateandplace {
+  width: 100%;
+  text-align: right;
+}
+.editButtonGroup {
+  margin-top: 10px;
+}
 .edit {
   margin: 0 0 10px 0;
 }
@@ -89,6 +101,16 @@ export default Vue.extend({
         '2019年2月30日、\n白松研究室の修士卒記念に残りの1ヶ月で大学生活を送る後輩が喜ぶアプリを作ろうと、\n2019年度卒の5人が集まって会議を行いました。\nその際、私はグラフィックファシリテーションの取入れを提案し、1時間の会議の進行と記録を行いました。',
       required: true
     },
+    place: {
+      type: String,
+      default: '',
+      required: false
+    },
+    eventDate: {
+      type: String,
+      default: '',
+      required: false
+    },
     avatars: {
       type: Array,
       default: null,
@@ -105,6 +127,8 @@ export default Vue.extend({
       editPortfolio: {
         title: '',
         show: '',
+        place: '',
+        eventDate: '',
         avatars: null,
         avatarNames: null
       },
