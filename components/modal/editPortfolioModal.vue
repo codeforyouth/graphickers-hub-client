@@ -26,6 +26,22 @@
         ></b-form-textarea>
       </b-form-group>
 
+      <b-form-group label="場所" label-for="place-input">
+        <b-form-input
+          id="title-input"
+          v-model="place"
+          type="text"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="日付" label-for="event-date-input">
+        <b-form-input
+          id="event-date-input"
+          v-model="eventDate"
+          type="date"
+        ></b-form-input>
+      </b-form-group>
+
       <b-button class="float-right" type="submit" variant="primary"
         >作品・実績編集</b-button
       >
@@ -48,7 +64,9 @@ export default Vue.extend({
     ...mapGetters('portfolios', {
       getId: 'getId',
       getTitle: 'getTitle',
-      getShow: 'getShow'
+      getShow: 'getShow',
+      getPlace: 'getPlace',
+      getEventDate: 'getEventDate'
     }),
     title: {
       get() {
@@ -65,6 +83,22 @@ export default Vue.extend({
       set(val) {
         this.setShow(val)
       }
+    },
+    place: {
+      get() {
+        return this.getPlace
+      },
+      set(val) {
+        this.setPlace(val)
+      }
+    },
+    eventDate: {
+      get() {
+        return this.getEventDate
+      },
+      set(val) {
+        this.setEventDate(val)
+      }
     }
   },
   methods: {
@@ -75,6 +109,8 @@ export default Vue.extend({
         id: this.getId,
         title: this.title,
         show: this.show,
+        place: this.place,
+        eventDate: this.eventDate,
         graphickerId: this.graphickerId,
         token: this.token
       })
@@ -94,7 +130,9 @@ export default Vue.extend({
     }),
     ...mapMutations('portfolios', {
       setTitle: 'setTitle',
-      setShow: 'setShow'
+      setShow: 'setShow',
+      setPlace: 'setPlace',
+      setEventDate: 'setEventDate'
     })
   }
 })

@@ -3,6 +3,8 @@ export const state = () => ({
     id: 0,
     title: '',
     show: '',
+    place: '',
+    event_date: '',
     graphicker_id: 0,
     avatars_url: []
   },
@@ -16,6 +18,8 @@ export const getters = {
   getId: (state) => state.portfolio.id,
   getTitle: (state) => state.portfolio.title,
   getShow: (state) => state.portfolio.show,
+  getPlace: (state) => state.portfolio.place,
+  getEventDate: (state) => state.portfolio.event_date,
   getAvatars: (state) => state.portfolio.avatars_url
 }
 
@@ -41,6 +45,8 @@ export const mutations = {
       id: 0,
       title: '',
       show: '',
+      place: '',
+      event_date: '',
       graphicker_id: 0,
       avatars_url: []
     }
@@ -50,16 +56,27 @@ export const mutations = {
   },
   setShow(state, show) {
     state.portfolio.show = show
+  },
+  setPlace(state, place) {
+    state.portfolio.place = place
+  },
+  setEventDate(state, eventDate) {
+    state.portfolio.event_date = eventDate
   }
 }
 
 export const actions = {
-  async createPortfolios({ commit }, { title, show, graphickerId, token }) {
+  async createPortfolios(
+    { commit },
+    { title, show, place, eventDate, graphickerId, token }
+  ) {
     commit('startLoading')
 
     const portfolio = {
       title,
       show,
+      place,
+      event_date: eventDate,
       graphicker_id: graphickerId
     }
 
@@ -100,12 +117,17 @@ export const actions = {
       })
     commit('endLoading')
   },
-  async updatePortfolio({ commit }, { title, show, id, graphickerId, token }) {
+  async updatePortfolio(
+    { commit },
+    { title, show, place, eventDate, id, graphickerId, token }
+  ) {
     commit('startLoading')
 
     const portfolio = {
       title,
       show,
+      place,
+      event_date: eventDate,
       graphicker_id: graphickerId
     }
 
