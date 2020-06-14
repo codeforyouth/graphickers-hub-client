@@ -14,6 +14,10 @@ export const state = () => ({
   isLoading: false
 })
 
+export const getters = {
+  getId: (state) => state.graphicker.id
+}
+
 export const mutations = {
   setAll(state, graphickers) {
     state.isError = false

@@ -9,6 +9,8 @@ export const state = () => ({
     avatars_url: []
   },
   portfolios: [],
+  portfoliosOrder: 'id',
+  portfoliosAscDesc: 'asc',
   ErrorMessage: null,
   isError: false,
   isLoading: false
@@ -20,10 +22,18 @@ export const getters = {
   getShow: (state) => state.portfolio.show,
   getPlace: (state) => state.portfolio.place,
   getEventDate: (state) => state.portfolio.event_date,
-  getAvatars: (state) => state.portfolio.avatars_url
+  getAvatars: (state) => state.portfolio.avatars_url,
+  getPortfoliosOrder: (state) => state.portfoliosOrder,
+  getPortfoliosAscDesc: (state) => state.portfoliosAscDesc
 }
 
 export const mutations = {
+  setPortfoliosOrder(state, val) {
+    state.portfoliosOrder = val
+  },
+  setPortfoliosAscDesc(state, val) {
+    state.portfoliosAscDesc = val
+  },
   startLoading(state) {
     state.isLoading = true
   },
@@ -226,10 +236,15 @@ export const actions = {
       })
     commit('endLoading')
   },
-  async fetchGraphickerPortfolios({ commit }, { graphickerId }) {
+  async fetchGraphickerPortfolios(
+    { commit },
+    { graphickerId, ordering, ascdesc }
+  ) {
     commit('startLoading')
     await this.$axios
-      .$get('/graphickers/' + graphickerId + '/portfolios')
+      .$get('/graphickers/' + graphickerId + '/portfolios', {
+        params: { ordering, ascdesc }
+      })
       .then((res) => {
         commit('setList', res)
       })
