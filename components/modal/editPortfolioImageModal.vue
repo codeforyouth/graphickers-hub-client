@@ -51,24 +51,24 @@ import { mapGetters, mapActions } from 'vuex'
 export default Vue.extend({
   data() {
     return {
-      newFile: null
+      newFile: null,
     }
   },
   computed: {
     ...mapGetters('portfolios', {
       id: 'getId',
-      getAvatars: 'getAvatars'
+      getAvatars: 'getAvatars',
     }),
     ...mapGetters('sessionGraphicker', {
       graphickerId: 'getId',
-      token: 'getToken'
+      token: 'getToken',
     }),
     avatars: {
       get() {
         return this.getAvatars
       },
-      set(val) {}
-    }
+      set(val) {},
+    },
   },
   methods: {
     async deleteAvatar(avatar) {
@@ -78,7 +78,7 @@ export default Vue.extend({
         id: this.id,
         avatarIndex,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 登録失敗
@@ -96,7 +96,7 @@ export default Vue.extend({
         id: this.id,
         avatar,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 登録失敗
@@ -112,8 +112,8 @@ export default Vue.extend({
       appendPortfolioImage: 'appendPortfolioImage',
       deletePortfolioImage: 'deletePortfolioImage',
       fetchPortfolio: 'fetchPortfolio',
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
-    })
-  }
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
+    }),
+  },
 })
 </script>

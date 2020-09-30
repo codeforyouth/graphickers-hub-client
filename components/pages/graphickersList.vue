@@ -23,22 +23,22 @@ import graphicker from '~/components/pages/graphicker.vue'
 
 export default Vue.extend({
   components: {
-    graphicker
+    graphicker,
   },
   computed: {
     ...mapState('graphickers', {
       graphickers: 'graphickers',
       ErrorMessage: 'ErrorMessage',
-      isError: 'isError'
-    })
+      isError: 'isError',
+    }),
   },
   mounted() {
     this.getList()
   },
   methods: {
     ...mapActions('graphickers', {
-      getList: 'fetchGraphickers'
-    })
-  }
+      getList: 'fetchGraphickers',
+    }),
+  },
 })
 </script>

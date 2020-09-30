@@ -25,10 +25,10 @@ export default Vue.extend({
     graphickersList,
     navbar,
     pageFooter,
-    sessionModals
+    sessionModals,
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
-  }
+  },
 })
 </script>

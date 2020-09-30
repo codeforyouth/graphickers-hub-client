@@ -18,17 +18,17 @@ export default Vue.extend({
   data() {
     return {
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
-      token: this.$store.getters['sessionGraphicker/getToken']
+      token: this.$store.getters['sessionGraphicker/getToken'],
     }
   },
   computed: {
     ...mapGetters('portfolios', {
       getId: 'getId',
-      getTitle: 'getTitle'
+      getTitle: 'getTitle',
     }),
     title() {
       return this.getTitle
-    }
+    },
   },
   methods: {
     async deletePortfolio(event) {
@@ -37,7 +37,7 @@ export default Vue.extend({
       await this.destroyPortfolio({
         id: this.getId,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 削除失敗
@@ -51,8 +51,8 @@ export default Vue.extend({
     },
     ...mapActions('portfolios', {
       destroyPortfolio: 'destroyPortfolio',
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
-    })
-  }
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
+    }),
+  },
 })
 </script>

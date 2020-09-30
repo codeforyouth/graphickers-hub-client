@@ -6,16 +6,16 @@ export const state = () => ({
     introduction: '自己紹介',
     equipment: '装備紹介',
     avatar_url: null,
-    token: 'api-token'
+    token: 'api-token',
   },
   graphickers: [],
   ErrorMessage: null,
   isError: false,
-  isLoading: false
+  isLoading: false,
 })
 
 export const getters = {
-  getId: (state) => state.graphicker.id
+  getId: (state) => state.graphicker.id,
 }
 
 export const mutations = {
@@ -36,7 +36,7 @@ export const mutations = {
   },
   endLoading(state) {
     state.isLoading = false
-  }
+  },
 }
 
 export const actions = {
@@ -75,5 +75,5 @@ export const actions = {
         }
       })
     commit('endLoading')
-  }
+  },
 }

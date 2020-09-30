@@ -6,7 +6,7 @@ export const state = () => ({
     place: '',
     event_date: '',
     graphicker_id: 0,
-    avatars_url: []
+    avatars_url: [],
   },
   portfolios: [],
   avatarUrl: '',
@@ -14,7 +14,7 @@ export const state = () => ({
   portfoliosAscDesc: 'asc',
   ErrorMessage: null,
   isError: false,
-  isLoading: false
+  isLoading: false,
 })
 
 export const getters = {
@@ -26,7 +26,7 @@ export const getters = {
   getAvatars: (state) => state.portfolio.avatars_url,
   getPortfoliosOrder: (state) => state.portfoliosOrder,
   getPortfoliosAscDesc: (state) => state.portfoliosAscDesc,
-  getAvatar: (state) => state.avatarUrl
+  getAvatar: (state) => state.avatarUrl,
 }
 
 export const mutations = {
@@ -63,7 +63,7 @@ export const mutations = {
       place: '',
       event_date: '',
       graphicker_id: 0,
-      avatars_url: []
+      avatars_url: [],
     }
   },
   setTitle(state, title) {
@@ -77,7 +77,7 @@ export const mutations = {
   },
   setEventDate(state, eventDate) {
     state.portfolio.event_date = eventDate
-  }
+  },
 }
 
 export const actions = {
@@ -92,13 +92,13 @@ export const actions = {
       show,
       place,
       event_date: eventDate,
-      graphicker_id: graphickerId
+      graphicker_id: graphickerId,
     }
 
     await this.$axios
       .$post('/portfolios', {
         portfolio,
-        token
+        token,
       })
       .then((res) => {
         commit('setOne', res)
@@ -161,13 +161,13 @@ export const actions = {
       show,
       place,
       event_date: eventDate,
-      graphicker_id: graphickerId
+      graphicker_id: graphickerId,
     }
 
     await this.$axios
       .$put('/portfolios/' + id, {
         portfolio,
-        token
+        token,
       })
       .then((res) => {
         commit('setOne', res)
@@ -187,15 +187,15 @@ export const actions = {
     commit('startLoading')
 
     const portfolio = {
-      graphicker_id: graphickerId
+      graphicker_id: graphickerId,
     }
 
     await this.$axios
       .$delete('/portfolios/' + id, {
         data: {
           portfolio,
-          token
-        }
+          token,
+        },
       })
       .catch((err) => {
         if (err.response) {
@@ -218,7 +218,7 @@ export const actions = {
 
     await this.$axios
       .$put('/portfolios/' + id + '/avatar', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
       .catch((err) => {
         if (err.response) {
@@ -238,15 +238,15 @@ export const actions = {
     commit('startLoading')
 
     const portfolio = {
-      graphicker_id: graphickerId
+      graphicker_id: graphickerId,
     }
 
     await this.$axios
       .$delete('/portfolios/' + id + '/avatar/' + avatarIndex, {
         data: {
           portfolio,
-          token
-        }
+          token,
+        },
       })
       .catch((err) => {
         if (err.response) {
@@ -266,7 +266,7 @@ export const actions = {
     commit('startLoading')
     await this.$axios
       .$get('/graphickers/' + graphickerId + '/portfolios', {
-        params: { ordering, ascdesc }
+        params: { ordering, ascdesc },
       })
       .then((res) => {
         commit('setList', res)
@@ -281,5 +281,5 @@ export const actions = {
         }
       })
     commit('endLoading')
-  }
+  },
 }

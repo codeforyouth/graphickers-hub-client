@@ -168,7 +168,7 @@ export default Vue.extend({
     navbar,
     pageFooter,
     sessionModals,
-    deleteGraphickerModal
+    deleteGraphickerModal,
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
@@ -182,12 +182,12 @@ export default Vue.extend({
         introduction: this.$store.getters['sessionGraphicker/getIntroduction'],
         equipment: this.$store.getters['sessionGraphicker/getEquipment'],
         newPassword: '',
-        newPasswordConfirmation: ''
+        newPasswordConfirmation: '',
       },
       id: this.$store.getters['sessionGraphicker/getId'],
       newFile: null,
       token: this.$store.getters['sessionGraphicker/getToken'],
-      isUpdateMode: false
+      isUpdateMode: false,
     }
   },
   computed: {
@@ -212,8 +212,8 @@ export default Vue.extend({
     ...mapState('sessionGraphicker', {
       graphicker: 'graphicker',
       isError: 'isError',
-      ErrorMessage: 'ErrorMessage'
-    })
+      ErrorMessage: 'ErrorMessage',
+    }),
   },
   methods: {
     async onSubmit(event) {
@@ -230,7 +230,7 @@ export default Vue.extend({
           ? this.form.newPasswordConfirmation
           : null,
         avatar: this.form.avatar,
-        token: this.token
+        token: this.token,
       })
 
       this.toggleUpdateMode()
@@ -249,7 +249,7 @@ export default Vue.extend({
         id: this.id,
         avatar,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 登録失敗
@@ -276,8 +276,8 @@ export default Vue.extend({
     },
     ...mapActions('sessionGraphicker', {
       updateGraphicker: 'updateGraphicker',
-      updateGraphickerAvatar: 'updateGraphickerAvatar'
-    })
-  }
+      updateGraphickerAvatar: 'updateGraphickerAvatar',
+    }),
+  },
 })
 </script>

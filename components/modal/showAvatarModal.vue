@@ -22,8 +22,8 @@ import { mapState } from 'vuex'
 export default Vue.extend({
   computed: {
     ...mapState('portfolios', {
-      imgUrl: 'avatarUrl'
-    })
-  }
+      imgUrl: 'avatarUrl',
+    }),
+  },
 })
 </script>

@@ -46,34 +46,34 @@ import portfolio from '~/components/pages/portfolio.vue'
 
 export default Vue.extend({
   components: {
-    portfolio
+    portfolio,
   },
   props: {
     portfolios: {
       type: Array,
       default: null,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       orderOpt: [
         { value: 'id', text: '登録順' },
-        { value: 'event_date', text: '開催日順' }
+        { value: 'event_date', text: '開催日順' },
       ],
       ascDescOpt: [
         { value: 'asc', text: '昇順' },
-        { value: 'desc', text: '降順' }
-      ]
+        { value: 'desc', text: '降順' },
+      ],
     }
   },
   computed: {
     ...mapGetters('graphickers', {
-      getGraphickerId: 'getId'
+      getGraphickerId: 'getId',
     }),
     ...mapGetters('portfolios', {
       getPortfoliosOrder: 'getPortfoliosOrder',
-      getPortfoliosAscDesc: 'getPortfoliosAscDesc'
+      getPortfoliosAscDesc: 'getPortfoliosAscDesc',
     }),
     portfoliosOrder: {
       get() {
@@ -81,7 +81,7 @@ export default Vue.extend({
       },
       set(val) {
         this.setPortfoliosOrder(val)
-      }
+      },
     },
     portfoliosAscDesc: {
       get() {
@@ -89,23 +89,23 @@ export default Vue.extend({
       },
       set(val) {
         this.setPortfoliosAscDesc(val)
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions('portfolios', {
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
     }),
     ...mapMutations('portfolios', {
       setPortfoliosOrder: 'setPortfoliosOrder',
-      setPortfoliosAscDesc: 'setPortfoliosAscDesc'
+      setPortfoliosAscDesc: 'setPortfoliosAscDesc',
     }),
     changePortfoliosOrder() {
       const graphickerId = this.getGraphickerId
       const ordering = this.getPortfoliosOrder
       const ascdesc = this.getPortfoliosAscDesc
       this.fetchGraphickerPortfolios({ graphickerId, ordering, ascdesc })
-    }
-  }
+    },
+  },
 })
 </script>

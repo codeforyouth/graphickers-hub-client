@@ -47,14 +47,14 @@ export default Vue.extend({
       isOpenLoginModal: false,
       visible: false,
       mypage: '/mypage',
-      myworks: '/myworks'
+      myworks: '/myworks',
     }
   },
   computed: {
     ...mapState('sessionGraphicker', {
       graphicker: 'graphicker',
-      isLogin: 'isLogin'
-    })
+      isLogin: 'isLogin',
+    }),
   },
   methods: {
     showLoginModal() {
@@ -66,15 +66,15 @@ export default Vue.extend({
     logout() {
       this.logoutGraphicker({
         id: this.graphicker.id,
-        token: this.graphicker.token
+        token: this.graphicker.token,
       })
 
       this.$router.push('/')
     },
     ...mapActions('sessionGraphicker', {
       logoutGraphicker: 'logoutGraphicker',
-      loadCurrentSession: 'loadCurrentSession'
-    })
-  }
+      loadCurrentSession: 'loadCurrentSession',
+    }),
+  },
 })
 </script>

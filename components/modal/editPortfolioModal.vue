@@ -57,7 +57,7 @@ export default Vue.extend({
   data() {
     return {
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
-      token: this.$store.getters['sessionGraphicker/getToken']
+      token: this.$store.getters['sessionGraphicker/getToken'],
     }
   },
   computed: {
@@ -66,7 +66,7 @@ export default Vue.extend({
       getTitle: 'getTitle',
       getShow: 'getShow',
       getPlace: 'getPlace',
-      getEventDate: 'getEventDate'
+      getEventDate: 'getEventDate',
     }),
     title: {
       get() {
@@ -74,7 +74,7 @@ export default Vue.extend({
       },
       set(val) {
         this.setTitle(val)
-      }
+      },
     },
     show: {
       get() {
@@ -82,7 +82,7 @@ export default Vue.extend({
       },
       set(val) {
         this.setShow(val)
-      }
+      },
     },
     place: {
       get() {
@@ -90,7 +90,7 @@ export default Vue.extend({
       },
       set(val) {
         this.setPlace(val)
-      }
+      },
     },
     eventDate: {
       get() {
@@ -98,8 +98,8 @@ export default Vue.extend({
       },
       set(val) {
         this.setEventDate(val)
-      }
-    }
+      },
+    },
   },
   methods: {
     async editPortfolio(event) {
@@ -112,7 +112,7 @@ export default Vue.extend({
         place: this.place,
         eventDate: this.eventDate,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 登録失敗
@@ -126,14 +126,14 @@ export default Vue.extend({
     },
     ...mapActions('portfolios', {
       updatePortfolio: 'updatePortfolio',
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
     }),
     ...mapMutations('portfolios', {
       setTitle: 'setTitle',
       setShow: 'setShow',
       setPlace: 'setPlace',
-      setEventDate: 'setEventDate'
-    })
-  }
+      setEventDate: 'setEventDate',
+    }),
+  },
 })
 </script>

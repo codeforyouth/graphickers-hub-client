@@ -13,7 +13,7 @@ import signupModal from '~/components/modal/signupModal.vue'
 export default Vue.extend({
   components: {
     loginModal,
-    signupModal
-  }
+    signupModal,
+  },
 })
 </script>

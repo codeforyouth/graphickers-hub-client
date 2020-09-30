@@ -84,8 +84,8 @@ export default Vue.extend({
         name: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
-      }
+        passwordConfirmation: '',
+      },
     }
   },
   computed: {
@@ -105,8 +105,8 @@ export default Vue.extend({
     },
     ...mapState('sessionGraphicker', {
       ErrorMessage: 'ErrorMessage',
-      isError: 'isError'
-    })
+      isError: 'isError',
+    }),
   },
   methods: {
     async onSubmit(event) {
@@ -117,7 +117,7 @@ export default Vue.extend({
         name: this.signup.name,
         email: this.signup.email,
         password: this.signup.password,
-        passwordConfirmation: this.signup.passwordConfirmation
+        passwordConfirmation: this.signup.passwordConfirmation,
       })
 
       // 新規登録失敗
@@ -128,7 +128,7 @@ export default Vue.extend({
       // ログイン処理
       await this.loginGraphicker({
         name: this.signup.name,
-        password: this.signup.password
+        password: this.signup.password,
       })
 
       this.$bvModal.hide('bv-modal-signup')
@@ -146,8 +146,8 @@ export default Vue.extend({
     },
     ...mapActions('sessionGraphicker', {
       signupGraphicker: 'createGraphicker',
-      loginGraphicker: 'loginGraphicker'
-    })
-  }
+      loginGraphicker: 'loginGraphicker',
+    }),
+  },
 })
 </script>

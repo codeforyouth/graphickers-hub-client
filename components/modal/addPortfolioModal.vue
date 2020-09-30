@@ -63,20 +63,20 @@ export default Vue.extend({
         title: '',
         show: '',
         place: '',
-        eventDate: ''
+        eventDate: '',
       },
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
-      token: this.$store.getters['sessionGraphicker/getToken']
+      token: this.$store.getters['sessionGraphicker/getToken'],
     }
   },
   computed: {
     ...mapState('sessionGraphicker', {
-      graphicker: 'graphicker'
+      graphicker: 'graphicker',
     }),
     ...mapState('portfolios', {
       portfolios: 'portfolios',
-      isError: 'isError'
-    })
+      isError: 'isError',
+    }),
   },
   mounted() {
     this.fetchGraphickerPortfolios({ graphickerId: this.graphickerId })
@@ -91,7 +91,7 @@ export default Vue.extend({
         place: this.newPortfolio.place,
         eventDate: this.newPortfolio.eventDate,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 登録失敗
@@ -105,8 +105,8 @@ export default Vue.extend({
     },
     ...mapActions('portfolios', {
       createPortfolios: 'createPortfolios',
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
-    })
-  }
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
+    }),
+  },
 })
 </script>

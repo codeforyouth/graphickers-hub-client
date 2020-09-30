@@ -18,7 +18,7 @@ export default Vue.extend({
   data() {
     return {
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
-      token: this.$store.getters['sessionGraphicker/getToken']
+      token: this.$store.getters['sessionGraphicker/getToken'],
     }
   },
   methods: {
@@ -27,7 +27,7 @@ export default Vue.extend({
 
       await this.destroyGraphicker({
         id: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 削除失敗
@@ -39,8 +39,8 @@ export default Vue.extend({
       this.$router.push('/')
     },
     ...mapActions('sessionGraphicker', {
-      destroyGraphicker: 'destroyGraphicker'
-    })
-  }
+      destroyGraphicker: 'destroyGraphicker',
+    }),
+  },
 })
 </script>

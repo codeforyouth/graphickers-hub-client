@@ -41,7 +41,7 @@ export default Vue.extend({
     addPortfolioModal,
     editPortfolioModal,
     editPortfolioImageModal,
-    deletePortfolioModal
+    deletePortfolioModal,
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
@@ -52,20 +52,20 @@ export default Vue.extend({
         title: '',
         show: '',
         avatars: null,
-        avatarNames: null
+        avatarNames: null,
       },
       graphickerId: this.$store.getters['sessionGraphicker/getId'],
-      token: this.$store.getters['sessionGraphicker/getToken']
+      token: this.$store.getters['sessionGraphicker/getToken'],
     }
   },
   computed: {
     ...mapState('sessionGraphicker', {
-      graphicker: 'graphicker'
+      graphicker: 'graphicker',
     }),
     ...mapState('portfolios', {
       portfolios: 'portfolios',
-      isError: 'isError'
-    })
+      isError: 'isError',
+    }),
   },
   mounted() {
     this.fetchGraphickerPortfolios({ graphickerId: this.graphickerId })
@@ -85,7 +85,7 @@ export default Vue.extend({
         show: this.newPortfolio.show,
         avatars: this.newPortfolio.avatars,
         graphickerId: this.graphickerId,
-        token: this.token
+        token: this.token,
       })
 
       // 登録失敗
@@ -97,8 +97,8 @@ export default Vue.extend({
     },
     ...mapActions('portfolios', {
       createPortfolios: 'createPortfolios',
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
-    })
-  }
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
+    }),
+  },
 })
 </script>

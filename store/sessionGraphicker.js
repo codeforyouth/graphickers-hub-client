@@ -6,12 +6,12 @@ export const state = () => ({
     introduction: '自己紹介',
     equipment: '装備紹介',
     avatar_url: null,
-    token: 'api-token'
+    token: 'api-token',
   },
   isLogin: false,
   ErrorMessage: null,
   isError: false,
-  isLoading: false
+  isLoading: false,
 })
 
 export const getters = {
@@ -21,7 +21,7 @@ export const getters = {
   getIntroduction: (state) => state.graphicker.introduction,
   getEquipment: (state) => state.graphicker.equipment,
   getToken: (state) => state.graphicker.token,
-  getAvatar: (state) => state.graphicker.avatar_url
+  getAvatar: (state) => state.graphicker.avatar_url,
 }
 
 export const mutations = {
@@ -39,7 +39,7 @@ export const mutations = {
       email: 'me@example.com',
       introduction: '自己紹介',
       equipment: '装備紹介',
-      token: 'api-token'
+      token: 'api-token',
     }
     this.$cookies.remove('session')
     state.isLogin = false
@@ -72,7 +72,7 @@ export const mutations = {
   updateGraphickerAvatar(state, avatarUrl) {
     state.graphicker.avatar_url = avatarUrl
     this.$cookies.set('session', state.graphicker)
-  }
+  },
 }
 
 export const actions = {
@@ -81,7 +81,7 @@ export const actions = {
     await this.$axios
       .$post('/login', {
         name,
-        password
+        password,
       })
       .then((res) => {
         commit('setSession', res)
@@ -102,7 +102,7 @@ export const actions = {
     commit('removeSession')
     await this.$axios.$post('/logout', {
       id,
-      token
+      token,
     })
     commit('endLoading')
   },
@@ -120,8 +120,8 @@ export const actions = {
           name,
           email,
           password,
-          password_confirmation: passwordConfirmation
-        }
+          password_confirmation: passwordConfirmation,
+        },
       })
       .catch((err) => {
         if (err.response) {
@@ -143,7 +143,7 @@ export const actions = {
       equipment,
       newPassword,
       newPasswordConfirmation,
-      token
+      token,
     }
   ) {
     commit('startLoading')
@@ -171,7 +171,7 @@ export const actions = {
       .$put('/graphickers/' + id, {
         graphicker,
         id,
-        token
+        token,
       })
       .then((res) => {
         commit('updateGraphicker', res)
@@ -198,7 +198,7 @@ export const actions = {
       formData.append('avatar', avatar)
       await this.$axios
         .$put('/graphickers/' + id + '/avatar', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
           commit('updateGraphickerAvatar', res)
@@ -221,8 +221,8 @@ export const actions = {
     await this.$axios
       .$delete('/graphickers/' + id, {
         graphicker: {
-          token
-        }
+          token,
+        },
       })
       .catch((err) => {
         if (err.response) {
@@ -235,5 +235,5 @@ export const actions = {
       })
     commit('removeSession')
     commit('endLoading')
-  }
+  },
 }

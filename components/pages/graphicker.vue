@@ -27,32 +27,32 @@ export default Vue.extend({
     id: {
       type: Number,
       default: null,
-      required: true
+      required: true,
     },
     avatar: {
       type: String,
       default: null,
-      required: false
+      required: false,
     },
     email: {
       type: String,
       default: 'none@none.com',
-      required: true
+      required: true,
     },
     name: {
       type: String,
       default: '名無し',
-      required: true
+      required: true,
     },
     introduction: {
       type: String,
       default: '自己紹介はありません',
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
-      path: '/graphicker/' + this.id
+      path: '/graphicker/' + this.id,
     }
   },
   computed: {
@@ -61,7 +61,7 @@ export default Vue.extend({
     },
     avatarUrl() {
       return this.avatar ? this.avatar : '/noimage.png'
-    }
-  }
+    },
+  },
 })
 </script>

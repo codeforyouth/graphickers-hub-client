@@ -51,15 +51,15 @@ export default Vue.extend({
     return {
       login: {
         name: '',
-        password: ''
-      }
+        password: '',
+      },
     }
   },
   computed: {
     ...mapState('sessionGraphicker', {
       ErrorMessage: 'ErrorMessage',
-      isError: 'isError'
-    })
+      isError: 'isError',
+    }),
   },
   methods: {
     async onSubmit(event) {
@@ -68,7 +68,7 @@ export default Vue.extend({
       // ログイン処理
       await this.loginGraphicker({
         name: this.login.name,
-        password: this.login.password
+        password: this.login.password,
       })
 
       // ログイン失敗
@@ -88,8 +88,8 @@ export default Vue.extend({
       this.login.password = ''
     },
     ...mapActions('sessionGraphicker', {
-      loginGraphicker: 'loginGraphicker'
-    })
-  }
+      loginGraphicker: 'loginGraphicker',
+    }),
+  },
 })
 </script>

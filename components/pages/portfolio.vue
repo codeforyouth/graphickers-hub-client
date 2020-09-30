@@ -88,40 +88,40 @@ export default Vue.extend({
     id: {
       type: Number,
       default: null,
-      required: true
+      required: true,
     },
     title: {
       type: String,
       default:
         '名古屋工業大学白松研究室でグラフィックファシリテーションをしました',
-      required: true
+      required: true,
     },
     show: {
       type: String,
       default:
         '2019年2月30日、\n白松研究室の修士卒記念に残りの1ヶ月で大学生活を送る後輩が喜ぶアプリを作ろうと、\n2019年度卒の5人が集まって会議を行いました。\nその際、私はグラフィックファシリテーションの取入れを提案し、1時間の会議の進行と記録を行いました。',
-      required: true
+      required: true,
     },
     place: {
       type: String,
       default: '',
-      required: false
+      required: false,
     },
     eventDate: {
       type: String,
       default: '',
-      required: false
+      required: false,
     },
     avatars: {
       type: Array,
       default: null,
-      required: false
+      required: false,
     },
     graphickerId: {
       type: Number,
       default: 0,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -131,9 +131,9 @@ export default Vue.extend({
         place: '',
         eventDate: '',
         avatars: null,
-        avatarNames: null
+        avatarNames: null,
       },
-      path: '/graphicker/' + this.graphickerId
+      path: '/graphicker/' + this.graphickerId,
     }
   },
   computed: {
@@ -144,8 +144,8 @@ export default Vue.extend({
       return this.graphicker ? this.graphicker.id === this.graphickerId : false
     },
     ...mapState('sessionGraphicker', {
-      graphicker: 'graphicker'
-    })
+      graphicker: 'graphicker',
+    }),
   },
   methods: {
     showEditPortfolioImageModal() {
@@ -166,8 +166,8 @@ export default Vue.extend({
     },
     ...mapActions('portfolios', {
       fetchPortfolio: 'fetchPortfolio',
-      fetchAvatar: 'fetchAvatar'
-    })
-  }
+      fetchAvatar: 'fetchAvatar',
+    }),
+  },
 })
 </script>

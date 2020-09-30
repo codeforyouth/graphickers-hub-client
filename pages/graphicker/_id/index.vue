@@ -2,9 +2,7 @@
   <b-container>
     <b-jumbotron :header="title" :lead="leadMessage" />
     <navbar />
-    <p v-if="isGraphickerLoading">
-      Now Loading...
-    </p>
+    <p v-if="isGraphickerLoading">Now Loading...</p>
     <main v-if="!isGraphickerLoading">
       <section>
         <h2>グラフィッカー情報</h2>
@@ -82,7 +80,7 @@ export default Vue.extend({
     editPortfolioModal,
     deletePortfolioModal,
     showAvatarModal,
-    portfoliosList
+    portfoliosList,
   },
   fetch({ store }) {
     store.commit('sessionGraphicker/setSessionFromCookie')
@@ -103,12 +101,12 @@ export default Vue.extend({
       graphicker: 'graphicker',
       ErrorMessage: 'ErrorMessage',
       isError: 'isError',
-      isGraphickerLoading: 'isLoading'
+      isGraphickerLoading: 'isLoading',
     }),
     ...mapState('portfolios', {
       portfolios: 'portfolios',
-      isPortfoliosLoading: 'isLoading'
-    })
+      isPortfoliosLoading: 'isLoading',
+    }),
   },
   mounted() {
     this.getOne({ id: this.$route.params.id })
@@ -116,11 +114,11 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('graphickers', {
-      getOne: 'fetchGraphicker'
+      getOne: 'fetchGraphicker',
     }),
     ...mapActions('portfolios', {
-      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios'
-    })
-  }
+      fetchGraphickerPortfolios: 'fetchGraphickerPortfolios',
+    }),
+  },
 })
 </script>
