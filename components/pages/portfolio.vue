@@ -9,10 +9,11 @@
             alt="Card image"
           ></b-card-img>
           <b-card-img
-            v-for="avatar in avatars"
-            :key="avatar"
+            v-for="(avatar, index) in avatars"
+            :key="index"
             :src="avatar"
             alt="Card image"
+            @click="showShowAvatarModal(index)"
           ></b-card-img>
         </b-col>
         <b-col md="8">
@@ -159,8 +160,13 @@ export default Vue.extend({
       this.fetchPortfolio({ id: this.id })
       this.$bvModal.show('bv-modal-delete-portfolio')
     },
+    showShowAvatarModal(index) {
+      this.fetchAvatar({ portfolioId: this.id, avatarId: index })
+      this.$bvModal.show('bv-modal-show-avatar')
+    },
     ...mapActions('portfolios', {
-      fetchPortfolio: 'fetchPortfolio'
+      fetchPortfolio: 'fetchPortfolio',
+      fetchAvatar: 'fetchAvatar'
     })
   }
 })

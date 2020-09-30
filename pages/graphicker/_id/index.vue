@@ -48,6 +48,7 @@
     <editPortfolioImageModal />
     <editPortfolioModal />
     <deletePortfolioModal />
+    <showAvatarModal />
   </b-container>
 </template>
 
@@ -70,6 +71,7 @@ import sessionModals from '~/components/modal/sessionModals.vue'
 import editPortfolioImageModal from '~/components/modal/editPortfolioImageModal.vue'
 import editPortfolioModal from '~/components/modal/editPortfolioModal.vue'
 import deletePortfolioModal from '~/components/modal/deletePortfolioModal.vue'
+import showAvatarModal from '~/components/modal/showAvatarModal.vue'
 
 export default Vue.extend({
   components: {
@@ -79,6 +81,7 @@ export default Vue.extend({
     editPortfolioImageModal,
     editPortfolioModal,
     deletePortfolioModal,
+    showAvatarModal,
     portfoliosList
   },
   fetch({ store }) {

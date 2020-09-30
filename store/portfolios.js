@@ -9,6 +9,7 @@ export const state = () => ({
     avatars_url: []
   },
   portfolios: [],
+  avatarUrl: '',
   portfoliosOrder: 'id',
   portfoliosAscDesc: 'asc',
   ErrorMessage: null,
@@ -24,7 +25,8 @@ export const getters = {
   getEventDate: (state) => state.portfolio.event_date,
   getAvatars: (state) => state.portfolio.avatars_url,
   getPortfoliosOrder: (state) => state.portfoliosOrder,
-  getPortfoliosAscDesc: (state) => state.portfoliosAscDesc
+  getPortfoliosAscDesc: (state) => state.portfoliosAscDesc,
+  getAvatar: (state) => state.avatarUrl
 }
 
 export const mutations = {
@@ -49,6 +51,9 @@ export const mutations = {
   },
   setOne(state, portfolio) {
     state.portfolio = portfolio
+  },
+  setAvatar(state, avatarUrl) {
+    state.avatarUrl = avatarUrl
   },
   initData(state) {
     state.portfolio = {
@@ -115,6 +120,24 @@ export const actions = {
       .$get('/portfolios/' + id)
       .then((res) => {
         commit('setOne', res)
+      })
+      .catch((err) => {
+        if (err.response) {
+          commit('setError', err.response.data)
+        } else if (err.request) {
+          commit('setError', err.request)
+        } else {
+          commit('setError', err.message)
+        }
+      })
+    commit('endLoading')
+  },
+  async fetchAvatar({ commit }, { portfolioId, avatarId }) {
+    commit('startLoading')
+    await this.$axios
+      .$get('/portfolios/' + portfolioId + '/avatar/' + avatarId)
+      .then((res) => {
+        commit('setAvatar', res)
       })
       .catch((err) => {
         if (err.response) {
